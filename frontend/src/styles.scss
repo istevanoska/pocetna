@@ -1,0 +1,191 @@
+:root {
+  --color-bg: #f4f5f8;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f8f9fb;
+  --color-text: #14151f;
+  --color-text-muted: #656b7a;
+  --color-border: #e7e9ee;
+
+  --color-primary: #e0233d;
+  --color-primary-dark: #b81830;
+  --color-primary-rgb: 224, 35, 61;
+
+  --color-accent: #f2a900;
+  --color-accent-dark: #c98600;
+  --color-accent-contrast: #241505;
+
+  --color-link: #4f46e5;
+
+  --nav-bg: #14151f;
+  --nav-bg-alt: #1c1e2b;
+  --nav-text: #ffffff;
+  --nav-text-muted: #a6abbd;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+
+  --shadow-sm: 0 1px 2px rgba(20, 20, 30, 0.06);
+  --shadow-md: 0 4px 16px rgba(20, 20, 30, 0.08);
+  --shadow-lg: 0 12px 32px rgba(20, 20, 30, 0.16);
+
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Plus Jakarta Sans", var(--font-sans);
+
+  /* Aurora background blobs (overridden per theme). */
+  --aurora-1: rgba(224, 35, 61, 0.10);
+  --aurora-2: rgba(99, 102, 241, 0.10);
+  --aurora-3: rgba(242, 169, 0, 0.08);
+}
+
+:root[data-theme='dark'] {
+  --color-bg: #0e0f15;
+  --color-surface: #171922;
+  --color-surface-alt: #1d202c;
+  --color-text: #edeff5;
+  --color-text-muted: #9aa1b0;
+  --color-border: #2a2e3c;
+
+  --color-primary: #ff4d6a;
+  --color-primary-dark: #e0233d;
+  --color-primary-rgb: 255, 77, 106;
+
+  --color-accent: #ffce54;
+  --color-accent-dark: #f2a900;
+  --color-accent-contrast: #241505;
+
+  --color-link: #8b85ff;
+
+  --nav-bg: #0a0b10;
+  --nav-bg-alt: #14151f;
+  --nav-text: #ffffff;
+  --nav-text-muted: #8890a3;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.55);
+
+  --aurora-1: rgba(255, 77, 106, 0.16);
+  --aurora-2: rgba(99, 102, 241, 0.18);
+  --aurora-3: rgba(255, 206, 84, 0.10);
+}
+
+:root[data-theme='mk'] {
+  --color-bg: #fbf3e2;
+  --color-surface: #fffdf8;
+  --color-surface-alt: #f7ecd3;
+  --color-text: #2a1a08;
+  --color-text-muted: #83714f;
+  --color-border: #ecdfba;
+
+  --color-primary: #c8102e;
+  --color-primary-dark: #9c0c23;
+  --color-primary-rgb: 200, 16, 46;
+
+  --color-accent: #f5b400;
+  --color-accent-dark: #c98f00;
+  --color-accent-contrast: #2a1a08;
+
+  --color-link: #a3480f;
+
+  --nav-bg: #2a1508;
+  --nav-bg-alt: #391d0b;
+  --nav-text: #fdf3df;
+  --nav-text-muted: #d8bd93;
+
+  --shadow-sm: 0 1px 2px rgba(60, 30, 0, 0.1);
+  --shadow-md: 0 4px 16px rgba(60, 30, 0, 0.14);
+  --shadow-lg: 0 12px 32px rgba(60, 30, 0, 0.22);
+
+  --aurora-1: rgba(200, 16, 46, 0.12);
+  --aurora-2: rgba(245, 180, 0, 0.14);
+  --aurora-3: rgba(163, 72, 15, 0.10);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-bg);
+  background-image:
+    radial-gradient(60% 50% at 12% 0%, var(--aurora-1), transparent 60%),
+    radial-gradient(50% 45% at 100% 8%, var(--aurora-2), transparent 55%),
+    radial-gradient(45% 40% at 55% 100%, var(--aurora-3), transparent 60%);
+  background-attachment: fixed;
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+h1, h2, h3, .display {
+  font-family: var(--font-display);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1, h2, h3, h4, p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-accent-contrast);
+}
+
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+}
+
+.widget {
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+
+.widget__head {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--color-border);
+  font-weight: 700;
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+.widget__head-icon {
+  color: var(--color-primary);
+}
+
+.widget__body {
+  padding: 12px 14px;
+}
+
+.widget__body--flush {
+  padding: 0;
+}

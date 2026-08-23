@@ -1,0 +1,55 @@
+.exchange-widget__status {
+  font-size: 13px;
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.exchange-widget__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+
+  td {
+    padding: 5px 0;
+    border-bottom: 1px solid var(--color-bg);
+  }
+}
+
+.exchange-widget__code {
+  font-weight: 700;
+  width: 44px;
+}
+
+.exchange-widget__name {
+  color: var(--color-text-muted);
+}
+
+.exchange-widget__value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.exchange-widget__toggle {
+  margin-top: 10px;
+  width: 100%;
+  border: none;
+  background: var(--color-bg);
+  color: var(--color-primary);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px;
+  border-radius: 6px;
+  cursor: pointer;
+
+  &:hover {
+    background: #eceef2;
+  }
+}
+
+.exchange-widget__date {
+  margin: 10px 0 0;
+  font-size: 11px;
+  color: var(--color-text-muted);
+  text-align: right;
+}

@@ -1,0 +1,41 @@
+<div class="widget">
+  <div class="widget__head">
+    <app-icon name="coins" [size]="16" class="widget__head-icon" />
+    <span>Курсна листа (НБРМ)</span>
+  </div>
+
+  <div class="widget__body">
+    @if (loading()) {
+      <p class="exchange-widget__status">Се вчитува...</p>
+    } @else if (!data() || data()!.rates.length === 0) {
+      <p class="exchange-widget__status">Курсната листа моментално не е достапна.</p>
+    } @else {
+      <table class="exchange-widget__table">
+        <tbody>
+          @for (rate of highlighted(); track rate.code) {
+            <tr>
+              <td class="exchange-widget__code">{{ rate.code }}</td>
+              <td class="exchange-widget__name">{{ rate.name }}</td>
+              <td class="exchange-widget__value">{{ rate.middleRate | number: '1.2-2' }} ден.</td>
+            </tr>
+          }
+          @if (showAll()) {
+            @for (rate of rest(); track rate.code) {
+              <tr>
+                <td class="exchange-widget__code">{{ rate.code }}</td>
+                <td class="exchange-widget__name">{{ rate.name }}</td>
+                <td class="exchange-widget__value">{{ rate.middleRate | number: '1.2-2' }} ден.</td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+
+      <button class="exchange-widget__toggle" (click)="toggleShowAll()">
+        {{ showAll() ? 'Прикажи помалку' : 'Прикажи ги сите валути' }}
+      </button>
+
+      <p class="exchange-widget__date">Средни курсеви на {{ data()!.date }}</p>
+    }
+  </div>
+</div>

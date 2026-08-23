@@ -1,0 +1,30 @@
+<div class="widget">
+  <div class="widget__head">
+    <app-icon name="rss" [size]="16" class="widget__head-icon" />
+    <span>Најнови вести</span>
+  </div>
+
+  <div class="widget__body widget__body--flush">
+    @if (loading()) {
+      <p class="news-widget__status">Се вчитува...</p>
+    } @else if (items().length === 0) {
+      <p class="news-widget__status">Нема достапни вести моментално.</p>
+    } @else {
+      <ul class="news-widget__list">
+        @for (item of items(); track item.link) {
+          <li>
+            <a [href]="item.link" target="_blank" rel="noopener">
+              <span class="news-widget__title">{{ item.title }}</span>
+              <span class="news-widget__meta">
+                @if (item.category) {
+                  <span class="news-widget__category">{{ item.category }}</span>
+                }
+                <span>{{ item.pubDate | date: 'd.MM HH:mm' }}</span>
+              </span>
+            </a>
+          </li>
+        }
+      </ul>
+    }
+  </div>
+</div>

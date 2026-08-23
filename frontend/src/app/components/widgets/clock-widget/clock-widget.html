@@ -1,0 +1,13 @@
+<div class="widget clock-widget">
+  <div class="clock-widget__time">{{ now() | date: 'HH:mm:ss' }}</div>
+  <div class="clock-widget__date">
+    {{ today()?.dayOfWeek ?? (now() | date: 'EEEE') }}, {{ today()?.displayDate ?? (now() | date: 'd MMMM y') }}
+  </div>
+
+  @if (today() && today()!.names.length > 0) {
+    <div class="clock-widget__nameday">
+      <span class="clock-widget__nameday-label">Именден денес:</span>
+      {{ today()!.names.join(', ') }}
+    </div>
+  }
+</div>

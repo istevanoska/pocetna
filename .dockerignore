@@ -1,0 +1,16 @@
+# Rebuilt inside the image — never copy local versions
+frontend/node_modules
+frontend/dist
+frontend/.angular
+build
+.gradle
+.kotlin
+src/main/resources/static
+
+# Local-only / never ship
+secrets.properties
+cloudflared.exe
+tunnel.log
+.idea
+*.iml
+.git

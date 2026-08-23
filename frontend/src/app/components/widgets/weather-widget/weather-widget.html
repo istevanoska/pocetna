@@ -1,0 +1,43 @@
+<div class="widget">
+  <div class="widget__head">
+    <app-icon name="cloud-sun" [size]="16" class="widget__head-icon" />
+    <span>Време</span>
+    <select class="weather-widget__select" [(ngModel)]="selectedCity" (ngModelChange)="onCityChange()">
+      @for (city of cities(); track city.id) {
+        <option [value]="city.id">{{ city.name }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="widget__body">
+    @if (loading()) {
+      <p class="weather-widget__status">Се вчитува...</p>
+    } @else if (!weather()) {
+      <p class="weather-widget__status">Времето моментално не е достапно.</p>
+    } @else {
+      <div class="weather-widget__now">
+        <app-icon [name]="weatherIconName(weather()!.weatherCode)" [size]="40" class="weather-widget__icon" />
+        <div>
+          <div class="weather-widget__temp">{{ weather()!.temperature | number: '1.0-0' }}°C</div>
+          <div class="weather-widget__desc">{{ weather()!.description }}</div>
+        </div>
+      </div>
+      <div class="weather-widget__meta">
+        <span><app-icon name="droplet" [size]="14" /> {{ weather()!.humidity }}%</span>
+        <span><app-icon name="wind" [size]="14" /> {{ weather()!.windSpeed | number: '1.0-0' }} km/h</span>
+      </div>
+
+      <div class="weather-widget__forecast">
+        @for (day of weather()!.forecast; track day.date) {
+          <div class="weather-widget__day">
+            <span class="weather-widget__day-label">{{ day.date | date: 'EEE' }}</span>
+            <app-icon [name]="weatherIconName(day.weatherCode)" [size]="18" />
+            <span class="weather-widget__day-temps">
+              {{ day.maxTemp | number: '1.0-0' }}°/{{ day.minTemp | number: '1.0-0' }}°
+            </span>
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

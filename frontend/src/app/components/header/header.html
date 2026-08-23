@@ -1,0 +1,148 @@
+<header class="header">
+  <div class="header__top">
+    <div class="header__top-inner">
+      <a class="header__logo" href="/">
+        <span class="header__logo-mark"><app-icon name="flag" [size]="18" /></span>
+        <span class="header__logo-text">Почетна<span class="accent">.мк</span></span>
+      </a>
+
+      <form class="header__search" (ngSubmit)="onSubmit()">
+        <app-icon name="search" [size]="18" class="header__search-icon" />
+        <input
+          class="header__search-input"
+          type="search"
+          name="q"
+          placeholder="Пребарувај на Google..."
+          [(ngModel)]="query"
+          autocomplete="off"
+        />
+        <button class="header__search-btn" type="submit" [disabled]="loading()">
+          @if (loading()) {
+            <span class="spinner"></span>
+          } @else {
+            Пребарај
+          }
+        </button>
+      </form>
+
+      <div class="header__controls">
+        <span class="header__date">{{ today | date: 'EEEE, d MMMM' }}</span>
+
+        <div class="control">
+          <button class="header__icon-btn" (click)="toggleThemeMenu(); $event.stopPropagation()" aria-label="Тема">
+            <app-icon [name]="currentThemeIcon()" [size]="18" />
+          </button>
+          @if (themeMenuOpen()) {
+            <div class="control__menu control__menu--themes">
+              @for (t of themes; track t.id) {
+                <button
+                  class="control__menu-item"
+                  [class.control__menu-item--active]="themeService.theme() === t.id"
+                  (click)="selectTheme(t.id)"
+                >
+                  <app-icon [name]="t.icon" [size]="15" />
+                  {{ t.label }}
+                </button>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="control">
+          <button class="header__account-btn" (click)="toggleAccountMenu(); $event.stopPropagation()">
+            @if (accountService.account(); as acc) {
+              <span class="header__avatar">{{ initials() }}</span>
+              <span class="header__account-name">{{ acc.name }}</span>
+            } @else {
+              <app-icon name="user" [size]="17" />
+              <span>Најави се</span>
+            }
+            <app-icon name="chevron-down" [size]="13" />
+          </button>
+
+          @if (accountMenuOpen()) {
+            <div class="control__menu control__menu--account">
+              @if (accountService.account(); as acc) {
+                <p class="account-menu__hello">Здраво, {{ acc.name }} 👋</p>
+                <p class="account-menu__email">{{ acc.email }}</p>
+                <button class="control__menu-item" (click)="logout()">
+                  <app-icon name="log-out" [size]="15" />
+                  Одјави се
+                </button>
+              } @else {
+                <p class="account-menu__hint">Регистрирај се со е-пошта за персонализиран поздрав на овој уред.</p>
+                <form class="account-menu__form" (ngSubmit)="submitLogin()">
+                  <input
+                    class="account-menu__input"
+                    type="email"
+                    placeholder="твојот@е-пошта.мк"
+                    required
+                    [ngModel]="loginEmail()"
+                    (ngModelChange)="loginEmail.set($event)"
+                    name="loginEmail"
+                  />
+                  <input
+                    class="account-menu__input"
+                    type="text"
+                    placeholder="Име (опционално)"
+                    [ngModel]="loginName()"
+                    (ngModelChange)="loginName.set($event)"
+                    name="loginName"
+                  />
+                  <button class="account-menu__submit" type="submit">
+                    <app-icon name="log-in" [size]="15" />
+                    Регистрирај се
+                  </button>
+                </form>
+                <p class="account-menu__note">Без лозинка — само за персонализација на овој уред.</p>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="header__nav">
+    <div class="header__nav-inner">
+      @for (item of navItems(); track item.id) {
+        <a [href]="'#' + item.id" class="header__nav-pill">
+          <app-icon [name]="item.icon" [size]="15" />
+          <span>{{ item.label }}</span>
+        </a>
+      }
+    </div>
+  </nav>
+
+  @if (panelOpen() && response()) {
+    <div class="results-backdrop" (click)="closePanel()"></div>
+    <div class="results-panel">
+      <div class="results-panel__head">
+        <span>Резултати за „{{ response()!.query }}“</span>
+        <button class="results-panel__close" (click)="closePanel()" aria-label="Затвори">
+          <app-icon name="x" [size]="15" />
+        </button>
+      </div>
+
+      @if (response()!.results.length === 0) {
+        <p class="results-panel__empty">Нема резултати.</p>
+      }
+
+      <ul class="results-panel__list">
+        @for (item of response()!.results; track item.link) {
+          <li>
+            <a [href]="item.link" target="_blank" rel="noopener">
+              <span class="results-panel__display-link">{{ item.displayLink }}</span>
+              <span class="results-panel__title">{{ item.title }}</span>
+              <span class="results-panel__snippet">{{ item.snippet }}</span>
+            </a>
+          </li>
+        }
+      </ul>
+
+      <a class="results-panel__more" [href]="response()!.googleFallbackUrl" target="_blank" rel="noopener">
+        Прикажи ги сите резултати на Google →
+      </a>
+    </div>
+  }
+</header>

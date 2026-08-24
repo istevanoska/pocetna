@@ -68,6 +68,20 @@ export class Header implements OnInit {
     this.panelOpen.set(false);
   }
 
+  /** Google vertical URLs for the Images / Videos / News tabs. */
+  verticalUrl(type: 'images' | 'videos' | 'news'): string {
+    const q = encodeURIComponent(this.response()?.query ?? this.query());
+    if (type === 'images') return `https://www.google.com/search?tbm=isch&q=${q}`;
+    if (type === 'videos') return `https://www.google.com/search?tbm=vid&q=${q}`;
+    return `https://news.google.com/search?q=${q}`;
+  }
+
+  /** Click a related search — run it in place. */
+  searchRelated(term: string): void {
+    this.query.set(term);
+    this.onSubmit();
+  }
+
   toggleThemeMenu(): void {
     this.accountMenuOpen.set(false);
     this.themeMenuOpen.set(!this.themeMenuOpen());

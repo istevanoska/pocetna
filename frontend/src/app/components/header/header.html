@@ -116,33 +116,58 @@
 
   @if (panelOpen() && response()) {
     <div class="results-backdrop" (click)="closePanel()"></div>
-    <div class="results-panel">
-      <div class="results-panel__head">
-        <span>Резултати за „{{ response()!.query }}“</span>
-        <button class="results-panel__close" (click)="closePanel()" aria-label="Затвори">
-          <app-icon name="x" [size]="15" />
-        </button>
-      </div>
+    <div class="results-page">
+      <div class="results-page__inner">
+        <div class="results-page__bar">
+          <nav class="results-tabs">
+            <span class="results-tabs__tab results-tabs__tab--active">Интернет</span>
+            <a class="results-tabs__tab" [href]="verticalUrl('images')" target="_blank" rel="noopener">Слики</a>
+            <a class="results-tabs__tab" [href]="verticalUrl('videos')" target="_blank" rel="noopener">Видеа</a>
+            <a class="results-tabs__tab" [href]="verticalUrl('news')" target="_blank" rel="noopener">Вести</a>
+          </nav>
+          <button class="results-page__close" (click)="closePanel()" aria-label="Затвори">
+            <app-icon name="x" [size]="16" />
+          </button>
+        </div>
 
-      @if (response()!.results.length === 0) {
-        <p class="results-panel__empty">Нема резултати.</p>
-      }
-
-      <ul class="results-panel__list">
-        @for (item of response()!.results; track item.link) {
-          <li>
-            <a [href]="item.link" target="_blank" rel="noopener">
-              <span class="results-panel__display-link">{{ item.displayLink }}</span>
-              <span class="results-panel__title">{{ item.title }}</span>
-              <span class="results-panel__snippet">{{ item.snippet }}</span>
-            </a>
-          </li>
+        @if (response()!.results.length === 0) {
+          <p class="results-page__empty">Нема резултати за „{{ response()!.query }}“.</p>
         }
-      </ul>
 
-      <a class="results-panel__more" [href]="response()!.googleFallbackUrl" target="_blank" rel="noopener">
-        Прикажи ги сите резултати на Google →
-      </a>
+        @if (response()!.relatedSearches.length > 0) {
+          <section class="related">
+            <h3 class="related__title">Поврзани пребарувања</h3>
+            <div class="related__grid">
+              @for (term of response()!.relatedSearches; track term) {
+                <button class="related__item" (click)="searchRelated(term)">
+                  <span>{{ term }}</span>
+                  <app-icon name="search" [size]="15" />
+                </button>
+              }
+            </div>
+          </section>
+        }
+
+        <section class="webresults">
+          <h3 class="webresults__title">Веб резултати</h3>
+          <ul class="webresults__list">
+            @for (item of response()!.results; track item.link) {
+              <li class="webresults__item">
+                <a class="webresults__link" [href]="item.link" target="_blank" rel="noopener">
+                  <img class="webresults__favicon" [src]="'https://www.google.com/s2/favicons?domain=' + item.displayLink + '&sz=32'" alt="" width="16" height="16" />
+                  <span class="webresults__site">{{ item.displayLink }}</span>
+                </a>
+                <a class="webresults__title-link" [href]="item.link" target="_blank" rel="noopener">{{ item.title }}</a>
+                <p class="webresults__snippet">{{ item.snippet }}</p>
+              </li>
+            }
+          </ul>
+
+          <a class="webresults__more" [href]="response()!.googleFallbackUrl" target="_blank" rel="noopener">
+            Прикажи ги сите резултати на Google →
+          </a>
+        </section>
+      </div>
     </div>
   }
 </header>

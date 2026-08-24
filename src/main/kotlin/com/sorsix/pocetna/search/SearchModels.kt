@@ -13,18 +13,24 @@ data class SearchResponse(
     val query: String,
     val configured: Boolean,
     val results: List<SearchResult>,
+    val relatedSearches: List<String>,
     val googleFallbackUrl: String,
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class GoogleCseResponse(
-    val items: List<GoogleCseItem> = emptyList(),
+data class SerperResponse(
+    val organic: List<SerperOrganic> = emptyList(),
+    val relatedSearches: List<SerperRelated> = emptyList(),
 )
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class GoogleCseItem(
+data class SerperOrganic(
     val title: String = "",
     val link: String = "",
     val snippet: String = "",
-    val displayLink: String = "",
+)
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class SerperRelated(
+    val query: String = "",
 )

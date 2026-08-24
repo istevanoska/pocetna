@@ -22,6 +22,7 @@ export interface SearchResponse {
   query: string;
   configured: boolean;
   results: SearchResult[];
+  relatedSearches: string[];
   googleFallbackUrl: string;
 }
 

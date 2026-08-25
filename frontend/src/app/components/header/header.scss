@@ -7,8 +7,9 @@
 .header__top {
   position: relative;
   background:
-    radial-gradient(80% 120% at 8% 0%, color-mix(in srgb, var(--color-primary) 26%, transparent), transparent 60%),
-    linear-gradient(180deg, var(--nav-bg) 0%, var(--nav-bg-alt) 100%);
+    radial-gradient(80% 120% at 8% 0%, color-mix(in srgb, var(--color-primary) 8%, transparent), transparent 55%),
+    var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
 
   &::after {
     content: '';
@@ -16,8 +17,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--color-primary) 60%, transparent), color-mix(in srgb, var(--color-accent) 60%, transparent), transparent);
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-primary), color-mix(in srgb, var(--color-primary) 55%, var(--color-accent)) 60%, var(--color-accent));
   }
 }
 
@@ -46,26 +47,18 @@
   flex-shrink: 0;
 }
 
-.header__logo-mark {
-  width: 38px;
+.header__logo-img {
+  display: block;
   height: 38px;
-  border-radius: 11px;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 14px -2px color-mix(in srgb, var(--color-primary) 60%, transparent);
-}
+  width: auto;
+  flex-shrink: 0;
 
-.header__logo-text {
-  color: var(--nav-text);
-  font-size: 20px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
+  @media (max-width: 560px) {
+    height: 32px;
+  }
 
-  .accent {
-    color: var(--color-accent);
+  @media (max-width: 400px) {
+    height: 28px;
   }
 }
 
@@ -73,15 +66,17 @@
   flex: 1;
   display: flex;
   align-items: center;
-  background: var(--color-surface);
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
   border-radius: 999px;
-  padding: 6px 6px 6px 18px;
+  padding: 5px 5px 5px 18px;
   max-width: 600px;
-  box-shadow: var(--shadow-md);
-  transition: box-shadow 0.15s ease;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.15s ease, border-color 0.15s ease;
 
   &:focus-within {
-    box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.35), var(--shadow-md);
+    border-color: color-mix(in srgb, var(--color-primary) 55%, var(--color-border));
+    box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.18);
   }
 
   @media (max-width: 760px) {
@@ -114,7 +109,7 @@
 
 .header__search-btn {
   border: none;
-  background: var(--color-primary);
+  background: #e5202b; // fixed brand red (matches the logo)
   color: #fff;
   font-weight: 600;
   font-size: 14px;
@@ -125,7 +120,7 @@
   min-width: 96px;
 
   &:hover {
-    background: var(--color-primary-dark);
+    background: #c4151f;
   }
 
   &:disabled {
@@ -156,7 +151,7 @@
 }
 
 .header__date {
-  color: var(--nav-text-muted);
+  color: var(--color-text-muted);
   font-size: 13px;
   text-transform: capitalize;
   margin-right: 4px;
@@ -174,17 +169,18 @@
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--nav-text);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-alt);
+  color: var(--color-text);
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, border-color 0.15s ease;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.14);
+    background: var(--color-bg);
+    border-color: color-mix(in srgb, var(--color-primary) 30%, var(--color-border));
   }
 }
 
@@ -192,18 +188,19 @@
   display: flex;
   align-items: center;
   gap: 7px;
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--nav-text);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface-alt);
+  color: var(--color-text);
   border-radius: 999px;
   padding: 6px 12px 6px 10px;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, border-color 0.15s ease;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.14);
+    background: var(--color-bg);
+    border-color: color-mix(in srgb, var(--color-primary) 30%, var(--color-border));
   }
 }
 

@@ -1,9 +1,14 @@
 <header class="header">
   <div class="header__top">
     <div class="header__top-inner">
-      <a class="header__logo" href="/">
-        <span class="header__logo-mark"><app-icon name="flag" [size]="18" /></span>
-        <span class="header__logo-text">Почетна<span class="accent">.мк</span></span>
+      <a class="header__logo" href="/" aria-label="pocetna.mk">
+        <img
+          class="header__logo-img"
+          [src]="themeService.theme() === 'dark' ? 'logo-light.png' : 'logo.png'"
+          alt="pocetna.mk"
+          width="180"
+          height="36"
+        />
       </a>
 
       <form class="header__search" (ngSubmit)="onSubmit()">

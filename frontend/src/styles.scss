@@ -6,20 +6,20 @@
   --color-text-muted: #656b7a;
   --color-border: #e7e9ee;
 
-  --color-primary: #e0233d;
-  --color-primary-dark: #b81830;
-  --color-primary-rgb: 224, 35, 61;
+  --color-primary: #e5202b;
+  --color-primary-dark: #c4151f;
+  --color-primary-rgb: 229, 32, 43;
 
   --color-accent: #f2a900;
   --color-accent-dark: #c98600;
   --color-accent-contrast: #241505;
 
-  --color-link: #4f46e5;
+  --color-link: #2f56d8;
 
-  --nav-bg: #14151f;
-  --nav-bg-alt: #1c1e2b;
+  --nav-bg: #1e2533;
+  --nav-bg-alt: #283143;
   --nav-text: #ffffff;
-  --nav-text-muted: #a6abbd;
+  --nav-text-muted: #aab2c5;
 
   --radius-sm: 8px;
   --radius-md: 12px;
@@ -33,8 +33,8 @@
   --font-display: "Plus Jakarta Sans", var(--font-sans);
 
   /* Aurora background blobs (overridden per theme). */
-  --aurora-1: rgba(224, 35, 61, 0.10);
-  --aurora-2: rgba(99, 102, 241, 0.10);
+  --aurora-1: rgba(229, 32, 43, 0.10);
+  --aurora-2: rgba(47, 86, 216, 0.10);
   --aurora-3: rgba(242, 169, 0, 0.08);
 }
 

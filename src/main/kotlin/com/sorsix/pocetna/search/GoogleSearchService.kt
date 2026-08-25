@@ -6,6 +6,7 @@ import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestClient
 import org.springframework.web.client.body
+import tools.jackson.databind.ObjectMapper
 import java.net.URI
 import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
@@ -17,6 +18,7 @@ import java.nio.charset.StandardCharsets
 @Service
 class GoogleSearchService(
     private val restClient: RestClient,
+    private val objectMapper: ObjectMapper,
     @Value("\${serper.api-key:}") private val apiKey: String,
 ) {
     private val log = LoggerFactory.getLogger(javaClass)
@@ -49,10 +51,7 @@ class GoogleSearchService(
                 )
             } ?: emptyList()
 
-            val related = response?.relatedSearches
-                ?.map { it.query }
-                ?.filter { it.isNotBlank() }
-                ?: emptyList()
+            val related = suggestions(query)
 
             SearchResponse(query, true, results, related, fallbackUrl)
         } catch (ex: Exception) {
@@ -67,5 +66,20 @@ class GoogleSearchService(
             URI(link).host?.removePrefix("www.") ?: link
         } catch (_: Exception) {
             link
+        }
+
+    /** Free Google autocomplete suggestions (no API key) used as "related searches". */
+    private fun suggestions(query: String): List<String> =
+        try {
+            val encoded = URLEncoder.encode(query, StandardCharsets.UTF_8)
+            val raw = restClient.get()
+                .uri("https://suggestqueries.google.com/complete/search?client=firefox&hl=mk&q=$encoded")
+                .retrieve()
+                .body(String::class.java)
+            val node = objectMapper.readTree(raw ?: "[]")
+            node.get(1)?.mapNotNull { it.asString() }?.take(8) ?: emptyList()
+        } catch (ex: Exception) {
+            log.warn("Suggestions request failed", ex)
+            emptyList()
         }
 }

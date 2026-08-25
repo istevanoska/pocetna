@@ -42,4 +42,8 @@ export class ApiService {
   getNameday(): Observable<TodayInfo> {
     return this.http.get<TodayInfo>('/api/nameday');
   }
+
+  register(email: string, name: string): Observable<{ email: string; name: string; alreadyRegistered: boolean }> {
+    return this.http.post<{ email: string; name: string; alreadyRegistered: boolean }>('/api/register', { email, name });
+  }
 }

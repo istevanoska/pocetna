@@ -4,3 +4,10 @@
 	encode gzip
 	reverse_proxy app:8080
 }
+
+# Fallback: lets you preview the site via the server's IP over http://
+# (plain HTTP, no certificate) before the domain's DNS is pointed here.
+http:// {
+	encode gzip
+	reverse_proxy app:8080
+}

@@ -1,0 +1,6 @@
+# Serves your domain over HTTPS (certificate is obtained & renewed automatically)
+# and forwards traffic to the Spring Boot app. Set DOMAIN in the .env file.
+{$DOMAIN}, www.{$DOMAIN} {
+	encode gzip
+	reverse_proxy app:8080
+}

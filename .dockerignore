@@ -9,6 +9,7 @@ src/main/resources/static
 
 # Local-only / never ship
 secrets.properties
+.env
 cloudflared.exe
 tunnel.log
 .idea

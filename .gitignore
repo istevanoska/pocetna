@@ -39,8 +39,9 @@ out/
 ### Kotlin ###
 .kotlin
 
-### Local secrets (Google API key + CSE id) ###
+### Local secrets ###
 secrets.properties
+.env
 
 ### Sharing (local tunnel) ###
 cloudflared.exe

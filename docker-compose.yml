@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: pocetna
+      POSTGRES_USER: pocetna
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  app:
+    build: .
+    restart: unless-stopped
+    environment:
+      SERPER_API_KEY: ${SERPER_API_KEY}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/pocetna
+      SPRING_DATASOURCE_USERNAME: pocetna
+      SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      PORT: "8080"
+    depends_on:
+      - db
+
+  # Reverse proxy with automatic Let's Encrypt HTTPS for your domain.
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - app
+
+volumes:
+  pgdata:
+  caddy_data:
+  caddy_config:

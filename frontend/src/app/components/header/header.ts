@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, inject, OnInit, signal } from '@angular/core';
+import { Component, ElementRef, HostListener, inject, OnInit, signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { ApiService } from '../../core/api.service';
@@ -28,6 +28,7 @@ export class Header implements OnInit {
   response = signal<SearchResponse | null>(null);
 
   navItems = signal<{ id: string; label: string; icon: string }[]>([]);
+  navScroll = viewChild<ElementRef<HTMLDivElement>>('navScroll');
 
   themeMenuOpen = signal(false);
   accountMenuOpen = signal(false);
@@ -66,6 +67,11 @@ export class Header implements OnInit {
 
   closePanel(): void {
     this.panelOpen.set(false);
+  }
+
+  /** Scroll the category pills left (-1) or right (1). */
+  scrollNav(direction: number): void {
+    this.navScroll()?.nativeElement.scrollBy({ left: direction * 260, behavior: 'smooth' });
   }
 
   /** Google vertical URLs for the Images / Videos / News tabs. */

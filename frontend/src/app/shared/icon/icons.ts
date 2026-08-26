@@ -36,6 +36,10 @@ export const ICONS: Record<string, string> = {
 
   'chevron-down': `<polyline points="5,8 12,15 19,8"/>`,
 
+  'chevron-left': `<polyline points="15,5 8,12 15,19"/>`,
+
+  'chevron-right': `<polyline points="9,5 16,12 9,19"/>`,
+
   x: `<line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/>`,
 
   menu: `<line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/>`,

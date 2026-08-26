@@ -109,13 +109,21 @@
   </div>
 
   <nav class="header__nav">
-    <div class="header__nav-inner">
-      @for (item of navItems(); track item.id) {
-        <a [href]="'#' + item.id" class="header__nav-pill">
-          <app-icon [name]="item.icon" [size]="15" />
-          <span>{{ item.label }}</span>
-        </a>
-      }
+    <div class="header__nav-wrap">
+      <button class="header__nav-arrow header__nav-arrow--left" (click)="scrollNav(-1)" aria-label="Лизгај лево" type="button">
+        <app-icon name="chevron-left" [size]="16" />
+      </button>
+      <div class="header__nav-inner" #navScroll>
+        @for (item of navItems(); track item.id) {
+          <a [href]="'#' + item.id" class="header__nav-pill">
+            <app-icon [name]="item.icon" [size]="15" />
+            <span>{{ item.label }}</span>
+          </a>
+        }
+      </div>
+      <button class="header__nav-arrow header__nav-arrow--right" (click)="scrollNav(1)" aria-label="Лизгај десно" type="button">
+        <app-icon name="chevron-right" [size]="16" />
+      </button>
     </div>
   </nav>
 

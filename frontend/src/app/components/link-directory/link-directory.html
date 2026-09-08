@@ -26,7 +26,7 @@
                 <span class="panel__count">{{ item.category.links.length }}</span>
               </div>
               <ul class="panel__links" [class.panel__links--cols]="item.category.links.length > 12">
-                @for (link of item.category.links; track link.url) {
+                @for (link of visibleLinks(item.category); track link.url) {
                   <li>
                     <a [href]="link.url" target="_blank" rel="noopener" [title]="link.description">
                       <img class="panel__favicon" [src]="favicon(link.url)" alt="" loading="lazy" width="18" height="18" />
@@ -35,6 +35,39 @@
                   </li>
                 }
               </ul>
+
+              @if (hiddenLinks(item.category).length > 0) {
+                <div class="panel__more" [class.panel__more--open]="isExpanded(item.category.id)">
+                  <div class="panel__more-inner">
+                    <ul class="panel__links panel__links--rest" [id]="'more-' + item.category.id">
+                      @for (link of hiddenLinks(item.category); track link.url) {
+                        <li>
+                          <a
+                            [href]="link.url"
+                            target="_blank"
+                            rel="noopener"
+                            [title]="link.description"
+                            [attr.tabindex]="isExpanded(item.category.id) ? null : -1"
+                          >
+                            <img class="panel__favicon" [src]="favicon(link.url)" alt="" loading="lazy" width="18" height="18" />
+                            <span class="panel__link-text">{{ link.name }}</span>
+                          </a>
+                        </li>
+                      }
+                    </ul>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="panel__toggle"
+                  [attr.aria-expanded]="isExpanded(item.category.id)"
+                  [attr.aria-controls]="'more-' + item.category.id"
+                  (click)="toggleExpanded(item.category.id)"
+                >
+                  {{ isExpanded(item.category.id) ? 'помалку' : 'повеќе...' }}
+                </button>
+              }
             </div>
           }
 

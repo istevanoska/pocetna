@@ -1,7 +1,7 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { ApiService } from '../../core/api.service';
-import { CurrentWeather, ExchangeRateList, LinkCategory, TodayInfo } from '../../core/models';
+import { CurrentWeather, ExchangeRateList, LinkCategory, SiteLink, TodayInfo } from '../../core/models';
 import { categoryIcon } from '../../core/category-icon-map';
 import { weatherIconName } from '../../core/weather-icon';
 import { faviconUrl } from '../../core/favicon';
@@ -30,6 +30,9 @@ const EXCHANGE_AFTER = 5;
 const POPULAR_AFTER = 6;
 const TODAY_AFTER = 8;
 
+// Links shown in a category panel before the “повеќе...” toggle.
+const VISIBLE_LINKS = 10;
+
 @Component({
   selector: 'app-link-directory',
   imports: [Icon, DecimalPipe],
@@ -44,6 +47,7 @@ export class LinkDirectory implements OnInit {
   exchange = signal<ExchangeRateList | null>(null);
   today = signal<TodayInfo | null>(null);
   loading = signal(true);
+  expanded = signal<Record<string, boolean>>({});
 
   quote = quoteOfTheDay();
 
@@ -120,6 +124,22 @@ export class LinkDirectory implements OnInit {
 
   searchUrl(query: string): string {
     return `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+  }
+
+  visibleLinks(category: LinkCategory): SiteLink[] {
+    return category.links.slice(0, VISIBLE_LINKS);
+  }
+
+  hiddenLinks(category: LinkCategory): SiteLink[] {
+    return category.links.slice(VISIBLE_LINKS);
+  }
+
+  isExpanded(id: string): boolean {
+    return this.expanded()[id] === true;
+  }
+
+  toggleExpanded(id: string): void {
+    this.expanded.update((state) => ({ ...state, [id]: !state[id] }));
   }
 
   trackItem(_: number, item: GridItem): string {

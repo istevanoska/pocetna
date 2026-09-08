@@ -8,7 +8,7 @@ REM ============================================================
 setlocal
 cd /d "%~dp0"
 
-set "SSH_KEY=C:\Users\Ilina\.ssh\id_ed26809"
+set "SSH_KEY=C:\Users\Stevanoski\.ssh\id_ed26809"
 set "SERVER=root@178.105.182.242"
 
 echo.

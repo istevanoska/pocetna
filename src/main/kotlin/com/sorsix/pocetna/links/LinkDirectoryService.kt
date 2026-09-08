@@ -100,10 +100,12 @@ class LinkDirectoryService {
         LinkCategory(
             id = "tehnologija", title = "Технологија", icon = "microchip",
             links = listOf(
-                SiteLink("Мета.мк Технологија", "https://meta.mk/tehnologija", "Технолошки вести"),
                 SiteLink("ИТ.мк", "https://it.mk", "IT портал"),
-                SiteLink("PHP.mk", "https://php.mk", "Програмерска заедница"),
-                SiteLink("Netokracija Balkans", "https://netokracija.rs", "Технолошки медиум за регионот"),
+                SiteLink("USB.mk", "https://usb.mk", "Технологија, наука и интернет"),
+                SiteLink("Smartportal.mk", "https://smartportal.mk", "Портал за паметна технологија"),
+                SiteLink("Иновативност", "https://inovativnost.mk", "Портал за иновации и претприемништво"),
+                SiteLink("Конект.мк", "https://konekt.mk", "Технологија и иновативни науки"),
+                SiteLink("Емитер", "https://emiter.com.mk", "Списание за наука и техника"),
             ),
         ),
         LinkCategory(

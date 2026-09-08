@@ -172,7 +172,15 @@ class LinkDirectoryService {
             id = "shopping", title = "Шопинг", icon = "cart-shopping",
             links = listOf(
                 SiteLink("Ananas", "https://ananas.mk/", "Онлајн продавница"),
+                SiteLink("Anhoch", "https://www.anhoch.com/", "Компјутери и техника"),
+                SiteLink("DDStore", "https://ddstore.mk/", "Компјутери и ИТ опрема"),
                 SiteLink("eKupi", "https://www.ekupi.mk/", "Онлајн продавница"),
+                SiteLink("Нептун", "https://www.neptun.mk/", "Техника и бела техника"),
+                SiteLink("Pazar3", "https://www.pazar3.mk/", "Огласи"),
+                SiteLink("Reklama5", "https://reklama5.mk/", "Огласи"),
+                SiteLink("Setec", "https://setec.mk/", "Техника и компјутери"),
+                SiteLink("Стокомак", "https://www.stokomak.com.mk/", "Супермаркет со онлајн продажба"),
+                SiteLink("Техномаркет", "https://tehnomarket.com.mk/", "Техника и бела техника"),
             ),
         ),
         LinkCategory(

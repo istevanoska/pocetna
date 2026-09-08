@@ -33,7 +33,6 @@ class LinkDirectoryService {
             id = "sport", title = "Спорт", icon = "trophy",
             links = listOf(
                 SiteLink("Сител Спорт", "https://sitel.com.mk/sport", "Спортски вести"),
-                SiteLink("Фудбал 24", "https://fudbal24.mk", "Фудбалски вести"),
                 SiteLink("Сакамфудбал", "https://sakamfudbal.mk", "Фудбалски портал"),
                 SiteLink("ФФМ", "https://ffm.mk", "Фудбалска федерација на Македонија"),
                 SiteLink("МОК", "https://mok.org.mk", "Македонски олимписки комитет"),

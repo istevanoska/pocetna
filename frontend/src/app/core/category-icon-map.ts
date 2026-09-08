@@ -10,6 +10,8 @@ const CATEGORY_ICON_MAP: Record<string, string> = {
   'map-location-dot': 'map-pin',
   envelope: 'mail',
   plane: 'plane',
+  'cart-shopping': 'shopping-cart',
+  users: 'users',
 };
 
 export function categoryIcon(key: string): string {

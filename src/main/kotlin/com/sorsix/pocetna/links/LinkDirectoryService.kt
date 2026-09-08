@@ -168,6 +168,26 @@ class LinkDirectoryService {
                 SiteLink("А1 Македонија", "https://a1.mk", "Телекомуникации"),
             ),
         ),
+        LinkCategory(
+            id = "shopping", title = "Шопинг", icon = "cart-shopping",
+            links = listOf(
+                SiteLink("Ananas", "https://ananas.mk/", "Онлајн продавница"),
+                SiteLink("eKupi", "https://www.ekupi.mk/", "Онлајн продавница"),
+            ),
+        ),
+        LinkCategory(
+            id = "socijalni", title = "Социјални медиуми", icon = "users",
+            links = listOf(
+                SiteLink("Facebook", "https://www.facebook.com/", "Социјална мрежа"),
+                SiteLink("Instagram", "https://www.instagram.com/", "Социјална мрежа"),
+                SiteLink("TikTok", "https://www.tiktok.com/", "Видео социјална мрежа"),
+                SiteLink("YouTube", "https://www.youtube.com/", "Видео платформа"),
+                SiteLink("X", "https://x.com/", "Социјална мрежа"),
+                SiteLink("LinkedIn", "https://www.linkedin.com/", "Професионална мрежа"),
+                SiteLink("Viber", "https://www.viber.com/", "Апликација за пораки"),
+                SiteLink("Telegram", "https://telegram.org/", "Апликација за пораки"),
+            ),
+        ),
     )
 
     fun getCategories(): List<LinkCategory> = categories

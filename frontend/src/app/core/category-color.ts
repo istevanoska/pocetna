@@ -12,6 +12,8 @@ const CATEGORY_COLORS: Record<string, string> = {
   mapi: '#059669',         // maps/transport — emerald
   'pošta': '#ea580c',      // post/utilities — orange
   turizam: '#0d9488',      // travel — teal
+  shopping: '#65a30d',     // shopping — lime
+  socijalni: '#4f46e5',    // social media — indigo
 };
 
 const FALLBACK = '#6366f1';

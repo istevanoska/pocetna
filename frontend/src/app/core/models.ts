@@ -9,6 +9,20 @@ export interface LinkCategory {
   title: string;
   icon: string;
   links: SiteLink[];
+  /** True when the category has its own page of subcategories at /<id>. */
+  hasPage?: boolean;
+}
+
+export interface CategorySection {
+  title: string;
+  links: SiteLink[];
+}
+
+export interface CategoryPageData {
+  id: string;
+  title: string;
+  icon: string;
+  sections: CategorySection[];
 }
 
 export interface SearchResult {

@@ -36,7 +36,9 @@
                 }
               </ul>
 
-              @if (hiddenLinks(item.category).length > 0) {
+              @if (item.category.hasPage) {
+                <a class="panel__toggle" [routerLink]="['/', item.category.id]">повеќе...</a>
+              } @else if (hiddenLinks(item.category).length > 0) {
                 <div class="panel__more" [class.panel__more--open]="isExpanded(item.category.id)">
                   <div class="panel__more-inner">
                     <ul class="panel__links panel__links--rest" [id]="'more-' + item.category.id">

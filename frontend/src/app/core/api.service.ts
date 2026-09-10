@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import {
+  CategoryPageData,
   CurrentWeather,
   ExchangeRateList,
   LinkCategory,
@@ -17,6 +18,10 @@ export class ApiService {
 
   getLinks(): Observable<LinkCategory[]> {
     return this.http.get<LinkCategory[]>('/api/links');
+  }
+
+  getCategoryPage(id: string): Observable<CategoryPageData> {
+    return this.http.get<CategoryPageData>(`/api/links/${encodeURIComponent(id)}`);
   }
 
   search(query: string): Observable<SearchResponse> {

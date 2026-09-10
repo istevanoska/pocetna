@@ -16,3 +16,8 @@
     gap: 14px;
   }
 }
+
+/* <router-outlet> renders an empty element; without this it would claim a grid cell. */
+router-outlet {
+  display: none;
+}

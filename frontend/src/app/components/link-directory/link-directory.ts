@@ -1,5 +1,6 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { ApiService } from '../../core/api.service';
 import { CurrentWeather, ExchangeRateList, LinkCategory, SiteLink, TodayInfo } from '../../core/models';
 import { categoryIcon } from '../../core/category-icon-map';
@@ -35,7 +36,8 @@ const VISIBLE_LINKS = 10;
 
 @Component({
   selector: 'app-link-directory',
-  imports: [Icon, DecimalPipe],
+  host: { class: 'layout__main' },
+  imports: [Icon, DecimalPipe, RouterLink],
   templateUrl: './link-directory.html',
   styleUrl: './link-directory.scss',
 })

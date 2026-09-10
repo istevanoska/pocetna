@@ -1,0 +1,42 @@
+<section class="catpage">
+  <a class="catpage__back" routerLink="/">← Назад на почетна</a>
+
+  @if (loading()) {
+    <div class="catpage__grid">
+      @for (i of [1, 2]; track i) {
+        <div class="panel panel--skeleton"></div>
+      }
+    </div>
+  } @else if (notFound()) {
+    <div class="catpage__empty">
+      <p>Оваа категорија нема своја страница.</p>
+      <a routerLink="/">Врати се на почетната страница</a>
+    </div>
+  } @else if (page(); as data) {
+    <header class="catpage__head" [style.--cat]="catColor(data.id)">
+      <span class="catpage__icon"><app-icon [name]="icon(data.icon)" [size]="20" /></span>
+      <h1 class="catpage__title">{{ data.title }}</h1>
+    </header>
+
+    <div class="catpage__grid">
+      @for (section of data.sections; track section.title) {
+        <div class="panel panel--cat" [style.--cat]="catColor(data.id)">
+          <div class="panel__head">
+            <h2 class="panel__title">{{ section.title }}</h2>
+            <span class="panel__count">{{ section.links.length }}</span>
+          </div>
+          <ul class="panel__links">
+            @for (link of section.links; track link.url) {
+              <li>
+                <a [href]="link.url" target="_blank" rel="noopener" [title]="link.description">
+                  <img class="panel__favicon" [src]="favicon(link.url)" alt="" loading="lazy" width="18" height="18" />
+                  <span class="panel__link-text">{{ link.name }}</span>
+                </a>
+              </li>
+            }
+          </ul>
+        </div>
+      }
+    </div>
+  }
+</section>

@@ -73,7 +73,7 @@ class LinkDirectoryService {
             ),
         ),
         LinkCategory(
-            id = "obrazovanie", title = "Образование", icon = "graduation-cap",
+            id = "obrazovanie", title = "Образование", icon = "graduation-cap", hasPage = true,
             links = listOf(
                 SiteLink("Американ колеџ Скопје", "https://aac.edu.mk", "American College Skopje"),
                 SiteLink("Биро за развој на образованието", "https://bro.gov.mk", "БРО"),
@@ -198,5 +198,30 @@ class LinkDirectoryService {
         ),
     )
 
+    private val pages: Map<String, CategoryPage> = listOf(
+        CategoryPage(
+            id = "obrazovanie", title = "Образование", icon = "graduation-cap",
+            sections = listOf(
+                CategorySection(
+                    title = "Факултети",
+                    links = listOf(
+                        SiteLink("ФЕИТ", "https://feit.ukim.edu.mk/", "Факултет за електротехника и информациски технологии, УКИМ"),
+                        SiteLink("ФИНКИ", "https://finki.ukim.mk/", "Факултет за информатички науки и компјутерско инженерство, УКИМ"),
+                        SiteLink("Воена академија", "http://ma.edu.mk", "Воена академија „Генерал Михаило Апостолски“"),
+                    ),
+                ),
+                CategorySection(
+                    title = "Универзитети",
+                    links = listOf(
+                        SiteLink("УГД", "https://www.ugd.edu.mk/", "Универзитет „Гоце Делчев“ – Штип"),
+                        SiteLink("УКИМ", "https://www.ukim.edu.mk/", "Универзитет „Св. Кирил и Методиј“ – Скопје"),
+                    ),
+                ),
+            ),
+        ),
+    ).associateBy { it.id }
+
     fun getCategories(): List<LinkCategory> = categories
+
+    fun getPage(id: String): CategoryPage? = pages[id]
 }

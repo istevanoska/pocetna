@@ -245,6 +245,14 @@ class LinkDirectoryService {
                     ),
                 ),
                 CategorySection(
+                    title = "Библиотеки",
+                    links = listOf(
+                        SiteLink("Градска библиотека", "http://www.gbsk.mk/", "Градска библиотека „Браќа Миладиновци“ – Скопје"),
+                        SiteLink("НУБ", "https://nubsk.edu.mk/", "Национална и универзитетска библиотека „Св. Климент Охридски“ – Скопје"),
+                        SiteLink("Универзитетска библиотека – Битола", "https://nuub.mk/", "Универзитетска библиотека „Св. Климент Охридски“ – Битола"),
+                    ),
+                ),
+                CategorySection(
                     title = "Стипендии и размена",
                     links = listOf(
                         SiteLink("Еразмус+", "https://erasmus-plus.ec.europa.eu/", "Програма на Европската унија за образование и мобилност"),

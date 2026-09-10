@@ -233,6 +233,25 @@ class LinkDirectoryService {
                         SiteLink("МОН", "https://mon.gov.mk/", "Министерство за образование и наука"),
                     ),
                 ),
+                CategorySection(
+                    title = "Институти",
+                    links = listOf(
+                        SiteLink("ИМЈ", "https://imj.ukim.edu.mk/", "Институт за македонски јазик „Крсте Мисирков“"),
+                        SiteLink("ИНИ", "https://ini.ukim.mk/", "Институт за национална историја"),
+                        SiteLink("Институт за фолклор", "https://ifmc.ukim.mk/", "Институт за фолклор „Марко Цепенков“"),
+                        SiteLink("ИСППИ", "https://isppi.ukim.edu.mk/", "Институт за социолошки и политичко-правни истражувања"),
+                        SiteLink("ИЗИИС", "https://www.iziis.ukim.edu.mk/", "Институт за земјотресно инженерство и инженерска сеизмологија"),
+                        SiteLink("МАНУ", "https://manu.edu.mk/", "Македонска академија на науките и уметностите"),
+                    ),
+                ),
+                CategorySection(
+                    title = "Стипендии и размена",
+                    links = listOf(
+                        SiteLink("Еразмус+", "https://erasmus-plus.ec.europa.eu/", "Програма на Европската унија за образование и мобилност"),
+                        SiteLink("EURAXESS Македонија", "https://www.euraxess.mk/", "Работни места и мобилност за истражувачи"),
+                        SiteLink("НАЕОП", "https://www.na.org.mk/", "Национална агенција за европски образовни програми и мобилност"),
+                    ),
+                ),
             ),
         ),
     ).associateBy { it.id }

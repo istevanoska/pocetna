@@ -213,8 +213,24 @@ class LinkDirectoryService {
                 CategorySection(
                     title = "Универзитети",
                     links = listOf(
+                        SiteLink("Американ колеџ", "https://aac.edu.mk/", "Американ колеџ Скопје"),
+                        SiteLink("МСУ", "https://msu.edu.mk/", "Меѓународен славјански универзитет"),
                         SiteLink("УГД", "https://www.ugd.edu.mk/", "Универзитет „Гоце Делчев“ – Штип"),
+                        SiteLink("УЈИЕ", "https://www.seeu.edu.mk/", "Универзитет на Југоисточна Европа – Тетово"),
                         SiteLink("УКИМ", "https://www.ukim.edu.mk/", "Универзитет „Св. Кирил и Методиј“ – Скопје"),
+                        SiteLink("УКЛО", "https://uklo.edu.mk/", "Универзитет „Св. Климент Охридски“ – Битола"),
+                        SiteLink("Универзитет во Тетово", "https://unite.edu.mk/", "Државен универзитет во Тетово"),
+                        SiteLink("Универзитет „Мајка Тереза“", "https://unt.edu.mk/", "Универзитет „Мајка Тереза“ – Скопје"),
+                    ),
+                ),
+                CategorySection(
+                    title = "Државни институции",
+                    links = listOf(
+                        SiteLink("АКВО", "https://www.akvo.mk/", "Агенција за квалитет во високото образование"),
+                        SiteLink("БРО", "https://bro.gov.mk/", "Биро за развој на образованието"),
+                        SiteLink("ЦСОО", "https://csoo.edu.mk/", "Центар за стручно образование и обука"),
+                        SiteLink("ДИЦ", "https://dic.edu.mk/", "Државен испитен центар"),
+                        SiteLink("МОН", "https://mon.gov.mk/", "Министерство за образование и наука"),
                     ),
                 ),
             ),

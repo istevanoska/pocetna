@@ -1,3 +1,7 @@
+// The radio widget is built and working but deliberately not shown:
+// components/widgets/radio-widget/ and the /api/radio endpoint are still here.
+// To bring it back, import RadioWidget, add it to imports, and put
+// <app-radio-widget /> back in sidebar.html under <app-weather-widget />.
 import { Component } from '@angular/core';
 import { ClockWidget } from '../widgets/clock-widget/clock-widget';
 import { WeatherWidget } from '../widgets/weather-widget/weather-widget';

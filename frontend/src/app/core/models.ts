@@ -94,3 +94,11 @@ export interface TodayInfo {
   dayOfWeek: string;
   names: string[];
 }
+
+export interface RadioStation {
+  id: string;
+  name: string;
+  description: string;
+  streamUrl: string;
+  homepage: string;
+}

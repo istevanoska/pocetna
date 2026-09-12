@@ -18,6 +18,18 @@ type GridItem =
   | { kind: 'quote'; quote: DailyQuote }
   | { kind: 'popular' };
 
+/**
+ * Rendered inside the same block as Цитат на денот, directly above it. The grid is a
+ * CSS multi-column flow, so two separate panels can be pulled into different columns;
+ * keeping them in one block is what holds them together.
+ */
+const NEWS_AGGREGATORS: SiteLink[] = [
+  { name: 'Grid.mk', url: 'https://grid.mk/', description: 'Агрегатор на вести' },
+  { name: 'Time.mk', url: 'https://time.mk/', description: 'Агрегатор на вести' },
+  { name: 'Vesti.mk', url: 'https://vesti.mk/', description: 'Агрегатор на вести и поткасти' },
+  { name: 'Vibes.mk', url: 'https://vibes.mk/', description: 'Избрани вести по категории' },
+];
+
 interface PopularSearch {
   label: string;
   query: string;
@@ -63,6 +75,8 @@ export class LinkDirectory implements OnInit {
     if (h < 22) return 'Добра вечер';
     return 'Добра ноќ';
   });
+
+  newsAggregators = NEWS_AGGREGATORS;
 
   popularSearches: PopularSearch[] = [
     { label: 'Временска прогноза', query: 'временска прогноза Македонија', icon: 'cloud-sun' },

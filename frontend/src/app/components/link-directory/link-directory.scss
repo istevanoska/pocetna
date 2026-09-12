@@ -131,6 +131,13 @@
   column-gap: 14px;
 }
 
+/* Two panels that must stay together and in order. The grid flows panels down
+   CSS columns, so siblings are otherwise free to land in different columns. */
+.panel-pair {
+  break-inside: avoid;
+  -webkit-column-break-inside: avoid;
+}
+
 .panel {
   --cat: var(--color-primary);
   break-inside: avoid;

@@ -7,6 +7,7 @@ import {
   ExchangeRateList,
   LinkCategory,
   NewsItem,
+  RadioStation,
   SearchResponse,
   TodayInfo,
   WeatherCity,
@@ -22,6 +23,10 @@ export class ApiService {
 
   getCategoryPage(id: string): Observable<CategoryPageData> {
     return this.http.get<CategoryPageData>(`/api/links/${encodeURIComponent(id)}`);
+  }
+
+  getRadioStations(): Observable<RadioStation[]> {
+    return this.http.get<RadioStation[]>('/api/radio');
   }
 
   search(query: string): Observable<SearchResponse> {

@@ -48,7 +48,10 @@ export interface ExchangeRate {
 }
 
 export interface ExchangeRateList {
+  /** The day the rates apply to, as yyyy-MM-dd. */
   date: string;
+  /** When the site last pulled the list from NBRM, ISO-8601. Empty when unavailable. */
+  fetchedAt: string;
   rates: ExchangeRate[];
 }
 

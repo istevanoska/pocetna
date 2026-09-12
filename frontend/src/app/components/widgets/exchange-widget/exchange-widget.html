@@ -35,7 +35,14 @@
         {{ showAll() ? 'Прикажи помалку' : 'Прикажи ги сите валути' }}
       </button>
 
-      <p class="exchange-widget__date">Средни курсеви на {{ data()!.date }}</p>
+      <p class="exchange-widget__date">
+        Средни курсеви на {{ data()!.date }}
+        @if (data()!.fetchedAt) {
+          <span class="exchange-widget__fetched">
+            Преземено на {{ data()!.fetchedAt | date: "dd.MM.yyyy 'во' HH:mm" }}
+          </span>
+        }
+      </p>
     }
   </div>
 </div>

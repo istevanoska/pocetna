@@ -50,6 +50,13 @@
 .exchange-widget__date {
   margin: 10px 0 0;
   font-size: 11px;
+  line-height: 1.5;
   color: var(--color-text-muted);
   text-align: right;
+}
+
+.exchange-widget__fetched {
+  display: block;
+  font-size: 10px;
+  opacity: 0.85;
 }

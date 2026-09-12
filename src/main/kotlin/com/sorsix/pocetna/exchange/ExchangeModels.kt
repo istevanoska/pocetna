@@ -8,7 +8,10 @@ data class ExchangeRate(
 )
 
 data class ExchangeRateList(
+    /** The day the rates apply to, as yyyy-MM-dd. */
     val date: String,
+    /** When this site last pulled the list from NBRM, ISO-8601. Empty when unavailable. */
+    val fetchedAt: String,
     val rates: List<ExchangeRate>,
 )
 

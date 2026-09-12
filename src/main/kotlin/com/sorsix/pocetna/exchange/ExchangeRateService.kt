@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service
 import org.springframework.web.client.RestClient
 import org.springframework.web.client.body
 import java.time.Duration
+import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -71,8 +72,12 @@ class ExchangeRateService(private val restClient: RestClient) {
             .toList()
 
         check(rates.isNotEmpty()) { "NBRM published no usable rates for $latest" }
-        return ExchangeRateList(date = latest.take(10), rates = rates)
+        return ExchangeRateList(
+            date = latest.take(10),
+            fetchedAt = Instant.now().toString(),
+            rates = rates,
+        )
     }
 
-    private fun emptyResult() = ExchangeRateList(date = "", rates = emptyList())
+    private fun emptyResult() = ExchangeRateList(date = "", fetchedAt = "", rates = emptyList())
 }

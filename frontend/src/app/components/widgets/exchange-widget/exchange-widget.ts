@@ -1,5 +1,5 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
-import { DecimalPipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { ApiService } from '../../../core/api.service';
 import { ExchangeRate, ExchangeRateList } from '../../../core/models';
 import { Icon } from '../../../shared/icon/icon';
@@ -8,7 +8,7 @@ const HIGHLIGHTED = ['EUR', 'USD', 'GBP', 'CHF'];
 
 @Component({
   selector: 'app-exchange-widget',
-  imports: [DecimalPipe, Icon],
+  imports: [DatePipe, DecimalPipe, Icon],
   templateUrl: './exchange-widget.html',
   styleUrl: './exchange-widget.scss',
 })

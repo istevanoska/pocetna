@@ -52,6 +52,11 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
   store locations but no online shopping.
 - 2026-09-10 — Category pages start with Образование only, to prove the pattern
   before adding more.
+- 2026-09-11 — Settled: `master` is the real branch (local work and the server
+  checkout are both on it). `deploy.bat` pushes `origin master` only, not `main`.
+- 2026-09-11 — `deploy.bat`'s SSH key lookup checks `%USERPROFILE%\.ssh\` for
+  `id_ed26809` (the actual key filename), then falls back to standard names
+  (`id_ed25519`, `id_ecdsa`, `id_rsa`), instead of a hardcoded per-machine path.
 
 ## Changelog
 
@@ -76,8 +81,6 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
   partial if more pages appear.
 - The panel grid is a CSS **multi-column** layout, so expanding a panel reflows the
   other columns. Moving to a real grid would fix the jump.
-- Remote has both `main` and `master`; local work is on `master`, but `deploy.bat`
-  pushes `main` and `main:master`. Settle which branch is real before deploying.
 
 ## Gotchas
 

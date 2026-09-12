@@ -8,7 +8,21 @@ REM ============================================================
 setlocal
 cd /d "%~dp0"
 
-set "SSH_KEY=C:\Users\Stevanoski\.ssh\id_ed26809"
+REM --- Find the SSH key on THIS computer ---------------------------
+REM  %USERPROFILE% is whatever account is logged in, so this keeps
+REM  working if the project moves to another machine or user.
+set "SSH_KEY="
+for %%K in (id_ed26809 id_ed25519 id_ecdsa id_rsa) do (
+  if not defined SSH_KEY if exist "%USERPROFILE%\.ssh\%%K" set "SSH_KEY=%USERPROFILE%\.ssh\%%K"
+)
+
+if defined SSH_KEY (
+  set SSH_OPTS=-i "%SSH_KEY%"
+  echo Using SSH key: %SSH_KEY%
+) else (
+  set "SSH_OPTS="
+  echo No key found in "%USERPROFILE%\.ssh" - relying on ssh-agent or ssh config.
+)
 set "SERVER=root@178.105.182.242"
 
 echo.
@@ -25,17 +39,17 @@ if not "%MSG%"=="" (
   git commit -m "%MSG%"
 )
 
-REM --- 2) Push to GitHub (both branches) ---
+REM --- 2) Push to GitHub ---
+REM  Local work and the server checkout are both on "master" - push that.
 echo.
 echo Pushing to GitHub...
-git push origin main
-git push origin main:master
+git push origin master
 if errorlevel 1 goto :error
 
 REM --- 3) Update the server: pull latest + rebuild containers ---
 echo.
 echo Updating the server (this rebuilds, ~5-8 min)...
-ssh -i "%SSH_KEY%" %SERVER% "cd pocetna && git pull && docker compose up -d --build"
+ssh %SSH_OPTS% %SERVER% "cd pocetna && git pull && docker compose up -d --build"
 if errorlevel 1 goto :error
 
 echo.

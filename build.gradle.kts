@@ -32,6 +32,12 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
+// The exportLinks task below adds a second main function to the source set, so the
+// Spring Boot plugin can no longer infer which one starts the application. Name it.
+springBoot {
+    mainClass.set("com.sorsix.pocetna.PocetnaApplicationKt")
+}
+
 kotlin {
     compilerOptions {
         freeCompilerArgs.addAll("-Xjsr305=strict", "-Xannotation-default-target=param-property")
@@ -46,4 +52,14 @@ tasks.withType<Test> {
 // so the Docker COPY glob matches exactly one artifact.
 tasks.named<Jar>("jar") {
     enabled = false
+}
+
+// Exports the link directory to JSON so the Angular build can prerender the site
+// without a running backend. See links/LinksSnapshot.kt.
+tasks.register<JavaExec>("exportLinks") {
+    group = "build"
+    description = "Writes frontend/src/links.snapshot.json from the Kotlin link directory."
+    classpath = sourceSets["main"].runtimeClasspath
+    mainClass.set("com.sorsix.pocetna.links.LinksSnapshotKt")
+    args("frontend/src/links.snapshot.json")
 }

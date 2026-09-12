@@ -1,4 +1,5 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, PLATFORM_ID, inject, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 export type ThemeId = 'light' | 'dark' | 'mk';
 
@@ -18,6 +19,10 @@ const STORAGE_KEY = 'pocetna.theme';
 
 @Injectable({ providedIn: 'root' })
 export class ThemeService {
+  // The site is prerendered to static HTML at build time, where there is no
+  // document to write to. The browser applies the theme on bootstrap instead.
+  private isBrowser = isPlatformBrowser(inject(PLATFORM_ID));
+
   theme = signal<ThemeId>(this.readInitial());
 
   constructor() {
@@ -35,6 +40,7 @@ export class ThemeService {
   }
 
   private apply(theme: ThemeId): void {
+    if (!this.isBrowser) return;
     document.documentElement.setAttribute('data-theme', theme);
   }
 

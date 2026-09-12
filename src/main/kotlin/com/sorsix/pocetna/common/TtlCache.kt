@@ -16,6 +16,8 @@ class TtlCache<T>(
 ) {
     @Volatile private var value: T? = null
     @Volatile private var expiresAt: Instant = Instant.MIN
+    @Volatile private var lastFailure: Exception? = null
+    @Volatile private var retryAt: Instant = Instant.MIN
     private val lock = Any()
 
     fun get(): T {
@@ -28,16 +30,28 @@ class TtlCache<T>(
             if (stillCached != null && Instant.now().isBefore(expiresAt)) {
                 return stillCached
             }
+            // With no value yet, a failing upstream must not be re-asked on every single
+            // call: that turns one refusal into a request per visitor, which is how a
+            // rate-limited or bot-protected source keeps refusing.
+            if (stillCached == null) {
+                val failure = lastFailure
+                if (failure != null && Instant.now().isBefore(retryAt)) {
+                    throw failure
+                }
+            }
             return try {
                 val fresh = loader()
                 value = fresh
                 expiresAt = Instant.now().plus(ttl)
+                lastFailure = null
                 fresh
             } catch (ex: Exception) {
                 if (stillCached != null) {
                     expiresAt = Instant.now().plus(retryDelay)
                     stillCached
                 } else {
+                    lastFailure = ex
+                    retryAt = Instant.now().plus(retryDelay)
                     throw ex
                 }
             }

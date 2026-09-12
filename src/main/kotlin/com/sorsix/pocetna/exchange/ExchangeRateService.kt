@@ -2,27 +2,34 @@ package com.sorsix.pocetna.exchange
 
 import com.sorsix.pocetna.common.TtlCache
 import org.slf4j.LoggerFactory
-import org.springframework.http.MediaType
 import org.springframework.stereotype.Service
-import org.springframework.util.LinkedMultiValueMap
 import org.springframework.web.client.RestClient
 import org.springframework.web.client.body
-import org.w3c.dom.Element
 import java.time.Duration
 import java.time.LocalDate
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
-import javax.xml.parsers.DocumentBuilderFactory
 
 /**
- * NBRM only exposes a plain-HTTP-POST "test" binding on its ASMX service (no JSON API),
- * so we POST form data and parse the returned XML by hand instead of pulling in a SOAP client.
+ * Reads the курсна листа from the National Bank's documented web service:
+ * GET /KLServiceNOV/GetExchangeRate?StartDate=dd.MM.yyyy and EndDate, format=json
+ *
+ * GetExchangeRate is the public exchange rate list. The sibling method GetExchangeRates
+ * returns the rates used by state bodies for foreign payments, which is a different list.
+ *
+ * Rates are published once per working day, so the cache holds them for hours rather
+ * than re-asking on every visit.
  */
 @Service
 class ExchangeRateService(private val restClient: RestClient) {
 
     private val log = LoggerFactory.getLogger(javaClass)
     private val dateFormat = DateTimeFormatter.ofPattern("dd.MM.yyyy")
-    private val cache = TtlCache(ttl = Duration.ofHours(1)) { fetchOrThrow() }
+    private val zone = ZoneId.of("Europe/Skopje")
+    private val cache = TtlCache(
+        ttl = Duration.ofHours(3),
+        retryDelay = Duration.ofMinutes(10),
+    ) { fetchOrThrow() }
 
     fun getRates(): ExchangeRateList = try {
         cache.get()
@@ -32,48 +39,40 @@ class ExchangeRateService(private val restClient: RestClient) {
     }
 
     private fun fetchOrThrow(): ExchangeRateList {
-        val today = LocalDate.now()
-        val body = LinkedMultiValueMap<String, String>().apply {
-            add("startDate", today.minusDays(7).format(dateFormat))
-            add("endDate", today.format(dateFormat))
-            add("isStateAuth", "false")
-        }
-        val xml = restClient.post()
-            .uri("https://www.nbrm.mk/services/ExchangeRates.asmx/GetEXRates")
-            .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-            .body(body)
+        val today = LocalDate.now(zone)
+        val rows = restClient.get()
+            .uri(
+                "https://www.nbrm.mk/KLServiceNOV/GetExchangeRate" +
+                    "?StartDate={start}&EndDate={end}&format=json",
+                today.minusDays(7).format(dateFormat),
+                today.format(dateFormat),
+            )
             .retrieve()
-            .body<String>()
-        check(!xml.isNullOrBlank()) { "NBRM returned an empty response" }
-        return parse(xml)
+            .body<List<NbrmRate>>()
+
+        check(!rows.isNullOrEmpty()) { "NBRM returned no exchange rates" }
+
+        // The response covers several days, oldest first. Keep the most recent one
+        // that has rates: today's list may not be published yet.
+        val latest = rows.mapNotNull { it.datum }.maxOrNull()
+            ?: error("NBRM rows carried no date")
+
+        val rates = rows.asSequence()
+            .filter { it.datum == latest }
+            .mapNotNull { row ->
+                val code = row.oznaka?.takeIf { it.isNotBlank() } ?: return@mapNotNull null
+                ExchangeRate(
+                    code = code,
+                    name = row.nazivMak?.takeIf { it.isNotBlank() } ?: code,
+                    nominal = row.nomin,
+                    middleRate = row.sreden,
+                )
+            }
+            .toList()
+
+        check(rates.isNotEmpty()) { "NBRM published no usable rates for $latest" }
+        return ExchangeRateList(date = latest.take(10), rates = rates)
     }
 
     private fun emptyResult() = ExchangeRateList(date = "", rates = emptyList())
-
-    private fun parse(xml: String): ExchangeRateList {
-        val factory = DocumentBuilderFactory.newInstance()
-        val doc = factory.newDocumentBuilder().parse(xml.byteInputStream(Charsets.UTF_8))
-        val dayNodes = doc.getElementsByTagName("ExchangeRatesByDay")
-
-        // Days are returned oldest-first; walk backwards to find the most recent day
-        // that actually has published rates (today's list may not exist yet).
-        for (i in dayNodes.length - 1 downTo 0) {
-            val dayElement = dayNodes.item(i) as? Element ?: continue
-            val rateNodes = dayElement.getElementsByTagName("ExchangeRateStateAuthoritiesModel")
-            if (rateNodes.length == 0) continue
-
-            val date = dayElement.getElementsByTagName("Date").item(0)?.textContent?.take(10) ?: ""
-            val rates = (0 until rateNodes.length).mapNotNull { j ->
-                val el = rateNodes.item(j) as? Element ?: return@mapNotNull null
-                val code = el.getElementsByTagName("Oznaka").item(0)?.textContent ?: return@mapNotNull null
-                val name = el.getElementsByTagName("Naziv").item(0)?.textContent ?: code
-                val nominal = el.getElementsByTagName("Nomin").item(0)?.textContent?.toIntOrNull() ?: 1
-                val middle = el.getElementsByTagName("Sreden").item(0)?.textContent?.toDoubleOrNull()
-                    ?: return@mapNotNull null
-                ExchangeRate(code, name, nominal, middle)
-            }
-            if (rates.isNotEmpty()) return ExchangeRateList(date, rates)
-        }
-        error("NBRM response contained no published rates in the last 7 days")
-    }
 }

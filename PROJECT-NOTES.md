@@ -10,13 +10,35 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
   Run: `cd frontend && npm start`. `proxy.conf.json` forwards `/api/**` to :8080.
 - **Type-check without a full build** — `cd frontend && node_modules/.bin/ngc -p tsconfig.app.json --noEmit`.
   Runs Angular's compiler including template type-checking, needs no esbuild, and
-  works from Claude's Linux shell. Use it on every frontend change.
+  works from Claude's Linux shell when that shell can reach the folder (see Gotchas).
+  Use it on every frontend change.
 - **Link snapshot** — `./gradlew exportLinks` writes `frontend/src/links.snapshot.json`
   from the Kotlin link list. The frontend imports it to prerender; re-run it after
   editing links so the committed copy stays current (the Docker build regenerates it
   regardless, so production can never be stale).
 - **Deploy** — `deploy.bat`: pushes to GitHub, then SSHes to `root@178.105.182.242`
   and runs `docker compose up -d --build`. Goce runs it himself. Never run it unasked.
+
+## Machine setup
+
+- Project root: `D:\ClaudeProjects\pocetna` on the Windows 11 machine `dforensics1`.
+  Until 2026-09-13 it was `IdeaProjects\pocetna1\pocetna` on `laptop-gs`.
+- Everything that matters is in GitHub (`istevanoska/pocetna`, `master`), so a move
+  is a clone plus the local pieces below.
+- Tooling: Git, Node 24 / npm 11, Temurin **JDK** 17. A JRE is not enough — the
+  Gradle toolchain rejects it, and `JAVA_HOME` must point at the JDK.
+- Not in git and not reproducible: the server SSH key `%USERPROFILE%\.ssh\id_ed26809`,
+  GitHub push credentials, and `cloudflared.exe` for `share.bat`. `.env` and
+  `secrets.properties` live on the server only.
+- `id_ed26809` is a non-standard key name, so a bare `ssh` will not offer it — use
+  `-i` or an `~/.ssh/config` entry. `deploy.bat` already looks for it first.
+- A copied key file needs its Windows ACL reset or ssh refuses it:
+  `icacls <key> /inheritance:r /grant:r "$env:USERNAME:R"`.
+- Windows Defender exclusion for `D:\ClaudeProjects` — `node_modules` and Gradle
+  are slow without it.
+- Verify a fresh machine in this order: `npm ci`, `gradlew exportLinks`,
+  `npm run build` (must prerender the static routes), `gradlew bootJar`, then a
+  read-only `ssh` to the server. Never use a deploy as a test.
 
 ## Layout
 
@@ -70,6 +92,10 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
 
 ## Changelog
 
+- 2026-09-13 — Environment migrated to `D:\ClaudeProjects\pocetna` on dforensics1:
+  fresh clone of `master`, JDK 17, Node 24, SSH key copied, Defender exclusion added.
+  Verified `npm ci`, `npm run build`, `gradlew bootJar`, `ssh` to the server, and
+  both dev servers (:4200 and :8080).
 - 2026-09-08 — `3f5dd45` LF normalisation · `34f6019` drop dead fudbal24.mk.
 - 2026-09-08 — `488c53e` refresh Технологија (out: meta.mk/tehnologija, php.mk,
   Netokracija; in: USB.mk, Smartportal, Иновативност, Конект.мк, Емитер).
@@ -139,9 +165,14 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
   non-API paths to `index.html`. `ng serve` hides this problem in development.
 - **`<router-outlet>` renders an empty element** and `.layout` is a grid, so it is
   `display: none` in `app.scss` or it claims a grid cell.
-- **Gradle cannot build from Claude's shell** — no network there, and the wrapper
-  wants to download its distribution. Backend changes are unverified until Goce runs
-  them. (Frontend has `ngc`, see above.)
+- **Claude can run nothing on dforensics1.** Since a Windows update on 2026-09-08 the
+  workspace shell cannot mount the project folder, so Claude lists, reads and writes
+  files but cannot run `git`, `npm` or `gradlew`. Goce runs every build, git command
+  and type-check himself, and anything Claude changes is unverified until he does.
+  If the mount comes back, the older limits still hold: Gradle has no network in that
+  shell and the wrapper would re-download its distribution, and `node_modules` holds
+  the **Windows** esbuild binary — never run `npm install` from that shell, it would
+  overwrite it. `ngc` (above) was the one check that did work there.
 - **Git lock files** — the mounted folder blocks deletes, and the permission resets
   whenever the connection drops, so `.git/index.lock` and friends pile up. Ask for
   delete permission again and clear them.
@@ -177,5 +208,3 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
   app in Node. `ThemeService.apply()` wrote to `document.documentElement` from its
   constructor and is now guarded with `isPlatformBrowser`. `new Audio()` in
   `radio-widget` is only safe because the widget is not currently rendered.
-- **`npm`/`ng build` cannot run from Claude's shell** either: `node_modules` holds the
-  Windows esbuild binary. Do not run `npm install` there — it would overwrite it.

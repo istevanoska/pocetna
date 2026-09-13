@@ -16,12 +16,11 @@ type GridItem =
   | { kind: 'exchange'; exchange: ExchangeRateList }
   | { kind: 'today'; today: TodayInfo }
   | { kind: 'quote'; quote: DailyQuote }
+  | { kind: 'aggregators' }
   | { kind: 'popular' };
 
 /**
- * Rendered inside the same block as Цитат на денот, directly above it. The grid is a
- * CSS multi-column flow, so two separate panels can be pulled into different columns;
- * keeping them in one block is what holds them together.
+ * Rendered as its own mini panel at the very top of the grid, above the first category.
  */
 const NEWS_AGGREGATORS: SiteLink[] = [
   { name: 'Grid.mk', url: 'https://grid.mk/', description: 'Агрегатор на вести' },
@@ -89,6 +88,7 @@ export class LinkDirectory implements OnInit {
 
   gridItems = computed<GridItem[]>(() => {
     const items: GridItem[] = [];
+    items.push({ kind: 'aggregators' });
     this.categories().forEach((category, i) => {
       items.push({ kind: 'category', category });
 

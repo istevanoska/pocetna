@@ -77,6 +77,9 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
 - 2026-09-08 — `8994dcc` 10-link cap with the `повеќе...` expander.
 - 2026-09-08 — `0597188` new categories Шопинг and Социјални медиуми, with two new icons.
 - 2026-09-10 — `8eadf5b` fill Шопинг to 10 · `b10421a` sort links in every category.
+- 2026-09-13 — **Deployed.** Verified live: pocetna.mk serves all 13 categories and the
+  h1 as real HTML to a non-JS client; /obrazovanie serves its own page with all six
+  sections and the descriptions on a second line. SpaForwardController routes correctly.
 - 2026-09-13 — Category pages show each link's description as visible text under the
   name, instead of only in a `title` tooltip. The descriptions were already written in
   `LinkDirectoryService.kt` (positional third argument to `SiteLink`) — all 153 of them.
@@ -101,8 +104,9 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
   from `LinkDirectoryService`; redirect `www` → apex in the `Caddyfile` (both currently
   serve 200, no canonical); Open Graph + Twitter Card with a 1200×630 image; render link
   descriptions as visible text on each category page (the text already exists); JSON-LD (`WebSite` +
-  `SearchAction`, `Organization`, `BreadcrumbList`); real 404 for unknown category ids
-  instead of the catch-all `:id` soft 404; rename the `pošta` category id to `posta`
+  `SearchAction`, `Organization`, `BreadcrumbList`); real 404 for unknown category ids —
+  now more urgent, since prerendering means an unknown URL serves the *full homepage*
+  rather than an empty shell, so arbitrary paths are indexable duplicates; rename the `pošta` category id to `posta`
   before it ever gets a page; compress the ~1 MB of PNG logos; self-host the ~150 Google
   favicon requests and the Google Fonts; `zstd` in Caddy; verify in Search Console.
 - Render the icon set without `[innerHTML]` (structured path data + a template loop)

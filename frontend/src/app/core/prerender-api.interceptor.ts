@@ -8,13 +8,12 @@ const LINKS_URL = '/api/links';
  * Server-only. During prerendering there is no backend to call, so the link
  * directory is served out of the build-time snapshot instead.
  *
- * The response is delayed by a tick on purpose. A real HTTP response never arrives
+ * The response is delayed by a tick because a real HTTP response never arrives
  * synchronously, and emitting one inside ngOnInit writes the categories signal in the
- * middle of the first change-detection pass: the views get created but only the first
- * one's bindings are applied, and because the app is zoneless and nothing is left
- * pending, Angular considers it stable and serialises a half-rendered page. One tick
- * puts the emission after that pass, where a normal response would land. The request
- * counts towards SSR stability while it is in flight, so the build still waits for it.
+ * middle of the first change-detection pass. This is defensive rather than a fix for
+ * any observed bug: the half-rendered pages we saw were caused by the icon component
+ * throwing during prerendering, not by this. The request counts towards SSR stability
+ * while it is in flight, so the build still waits for it either way.
  *
  * Every other API call — weather, exchange rates, news, nameday — is answered with an
  * empty completed stream: the request has to finish so the build cannot hang, and

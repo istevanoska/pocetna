@@ -97,6 +97,9 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
   instead of the catch-all `:id` soft 404; rename the `pošta` category id to `posta`
   before it ever gets a page; compress the ~1 MB of PNG logos; self-host the ~150 Google
   favicon requests and the Google Fonts; `zstd` in Caddy; verify in Search Console.
+- Render the icon set without `[innerHTML]` (structured path data + a template loop)
+  so icons appear in the prerendered HTML instead of only after bootstrap. 40 icons,
+  six element types.
 - More Образование subcategories; pages for other categories.
 - More shops: Ramstore, аптеки, мода. Огласи may deserve its own category.
 - `panel__links--cols` is bound in `link-directory.html` for >12 links but has no CSS
@@ -141,6 +144,13 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
   command-line versions all fail with ERESOLVE. The fix is `del package-lock.json`,
   `Remove-Item -Recurse -Force node_modules`, then `npm install`. Never reach for
   `--force` or `--legacy-peer-deps`; they produce a tree that breaks at render time.
+- **Nothing may bind `[innerHTML]` during prerendering.** Angular's server DOM has no
+  HTML parser, so `setProperty('innerHTML', ...)` throws `NotYetImplemented` — and the
+  throw aborts the rest of the surrounding template without failing the build. The
+  `Icon` component did this, which silently cost twelve of thirteen category panels and
+  every nav label after the first, while the build still reported success. `icon.html`
+  now only binds it in the browser. Symptom to watch for: a prerendered page that
+  contains the first item of a list and empty markup for the rest.
 - **`main.server.ts` must forward the `BootstrapContext`.** The prerenderer creates a
   platform per render and passes it in; `bootstrapApplication(App, config)` without the
   third argument fails the build with NG0401 "Missing Platform" during route extraction,

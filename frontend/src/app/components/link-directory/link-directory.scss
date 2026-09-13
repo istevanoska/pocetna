@@ -295,6 +295,14 @@
   padding-top: 0;
 }
 
+/* Two links per row instead of one per line. The base rule is a column flex,
+   so this switches the list to a two-track grid; items fill left to right. */
+.panel__links--two-up {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2px;
+}
+
 .panel__toggle {
   display: block;
   width: 100%;

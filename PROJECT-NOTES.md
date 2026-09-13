@@ -77,6 +77,9 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
 - 2026-09-08 — `8994dcc` 10-link cap with the `повеќе...` expander.
 - 2026-09-08 — `0597188` new categories Шопинг and Социјални медиуми, with two new icons.
 - 2026-09-10 — `8eadf5b` fill Шопинг to 10 · `b10421a` sort links in every category.
+- 2026-09-13 — Prerendering verified: homepage 13/13 categories, 135 outbound links,
+  125/125 link names as text, 124 kB of HTML (was an empty shell); /obrazovanie 6/6
+  sections, 28/28 links. Not yet deployed.
 - 2026-09-12 — SEO: prerendering. `links/LinksSnapshot.kt` + `exportLinks` task export
   the directory to JSON; `main.server.ts` / `app.config.server.ts` / `app.routes.server.ts`
   add the server build; `prerender-api.interceptor.ts` answers `/api/links` from the

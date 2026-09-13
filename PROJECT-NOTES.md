@@ -141,6 +141,11 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
   command-line versions all fail with ERESOLVE. The fix is `del package-lock.json`,
   `Remove-Item -Recurse -Force node_modules`, then `npm install`. Never reach for
   `--force` or `--legacy-peer-deps`; they produce a tree that breaks at render time.
+- **`main.server.ts` must forward the `BootstrapContext`.** The prerenderer creates a
+  platform per render and passes it in; `bootstrapApplication(App, config)` without the
+  third argument fails the build with NG0401 "Missing Platform" during route extraction,
+  after a clean compile. Signature is `(context: BootstrapContext) =>
+  bootstrapApplication(App, config, context)`.
 - **The frontend will not compile without `@angular/ssr` and the link snapshot.**
   `tsconfig.app.json` includes all of `src/**/*.ts`, so `main.server.ts` is type-checked
   even by `ng serve`. After a fresh clone: `npm install` then `./gradlew exportLinks`.

@@ -132,6 +132,15 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
   one, and `bootJar`/`bootRun` then fail with "Unable to find a single main class from
   the following candidates". Fixed by naming it explicitly in `springBoot { mainClass }`.
   Any future standalone main needs no further change, but do not remove that block.
+- **All `@angular/*` runtime packages must share one version floor, and changing them
+  means regenerating `package-lock.json`.** `@angular/build` declares
+  `peerOptional @angular/ssr@^21.2.20`, and `@angular/platform-server` declares *exact*
+  peers on `core`, `common`, `compiler` and `platform-browser` — so ssr forces a
+  framework floor and platform-server forces the whole line to move together. npm will
+  not lift the framework out of an existing lockfile: caret ranges, exact pins and
+  command-line versions all fail with ERESOLVE. The fix is `del package-lock.json`,
+  `Remove-Item -Recurse -Force node_modules`, then `npm install`. Never reach for
+  `--force` or `--legacy-peer-deps`; they produce a tree that breaks at render time.
 - **The frontend will not compile without `@angular/ssr` and the link snapshot.**
   `tsconfig.app.json` includes all of `src/**/*.ts`, so `main.server.ts` is type-checked
   even by `ng serve`. After a fresh clone: `npm install` then `./gradlew exportLinks`.

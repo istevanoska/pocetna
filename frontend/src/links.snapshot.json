@@ -1,0 +1,719 @@
+{
+  "categories" : [ {
+    "id" : "vesti",
+    "title" : "Вести",
+    "icon" : "newspaper",
+    "links" : [ {
+      "name" : "24Вести",
+      "url" : "https://24vesti.mk",
+      "description" : "Онлајн медиум"
+    }, {
+      "name" : "А1он",
+      "url" : "https://a1on.mk",
+      "description" : "Информативен портал"
+    }, {
+      "name" : "Фокус",
+      "url" : "https://fokus.mk",
+      "description" : "Неделен весник"
+    }, {
+      "name" : "Канал 5",
+      "url" : "https://kanal5.com.mk",
+      "description" : "Национална телевизија"
+    }, {
+      "name" : "Makfax",
+      "url" : "https://makfax.com.mk",
+      "description" : "Информативна агенција"
+    }, {
+      "name" : "Мета.мк",
+      "url" : "https://meta.mk",
+      "description" : "Онлајн медиум"
+    }, {
+      "name" : "МИА",
+      "url" : "https://mia.mk",
+      "description" : "Македонска информативна агенција"
+    }, {
+      "name" : "МКД",
+      "url" : "https://mkd.mk",
+      "description" : "Информативен портал"
+    }, {
+      "name" : "МТВ",
+      "url" : "https://mrt.com.mk",
+      "description" : "Македонска радио телевизија"
+    }, {
+      "name" : "Нова Македонија",
+      "url" : "https://novamakedonija.com.mk",
+      "description" : "Дневен весник"
+    }, {
+      "name" : "Плусинфо",
+      "url" : "https://plusinfo.mk",
+      "description" : "Информативен портал"
+    }, {
+      "name" : "Прес24",
+      "url" : "https://press24.mk",
+      "description" : "Информативен портал"
+    }, {
+      "name" : "Република",
+      "url" : "https://republika.mk",
+      "description" : "Информативен портал"
+    }, {
+      "name" : "Сакам да кажам",
+      "url" : "https://sdk.mk",
+      "description" : "Информативен портал"
+    }, {
+      "name" : "Сител",
+      "url" : "https://sitel.com.mk",
+      "description" : "Национална телевизија"
+    }, {
+      "name" : "Слободен печат",
+      "url" : "https://slobodenpecat.mk",
+      "description" : "Дневен весник"
+    }, {
+      "name" : "Телма",
+      "url" : "https://telma.com.mk",
+      "description" : "Национална телевизија"
+    }, {
+      "name" : "Утрински весник",
+      "url" : "https://utrinskivesnik.mk",
+      "description" : "Дневен весник"
+    } ],
+    "hasPage" : false
+  }, {
+    "id" : "sport",
+    "title" : "Спорт",
+    "icon" : "trophy",
+    "links" : [ {
+      "name" : "ФФМ",
+      "url" : "https://ffm.mk",
+      "description" : "Фудбалска федерација на Македонија"
+    }, {
+      "name" : "Гол.мк",
+      "url" : "https://gol.mk",
+      "description" : "Спортски портал"
+    }, {
+      "name" : "КФСМ",
+      "url" : "https://kfsm.mk",
+      "description" : "Кошаркарска федерација на Северна Македонија"
+    }, {
+      "name" : "МОК",
+      "url" : "https://mok.org.mk",
+      "description" : "Македонски олимписки комитет"
+    }, {
+      "name" : "Сакамфудбал",
+      "url" : "https://sakamfudbal.mk",
+      "description" : "Фудбалски портал"
+    }, {
+      "name" : "Сител Спорт",
+      "url" : "https://sitel.com.mk/sport",
+      "description" : "Спортски вести"
+    }, {
+      "name" : "Спортска Мрежа",
+      "url" : "https://sportskamreza.mk",
+      "description" : "Спортски портал"
+    }, {
+      "name" : "SportSport.mk",
+      "url" : "https://sportsport.mk",
+      "description" : "Спортски вести"
+    } ],
+    "hasPage" : false
+  }, {
+    "id" : "vlada",
+    "title" : "Власт и институции",
+    "icon" : "building-columns",
+    "links" : [ {
+      "name" : "Агенција за вработување",
+      "url" : "https://av.gov.mk",
+      "description" : "АВРСМ"
+    }, {
+      "name" : "Централен регистар",
+      "url" : "https://crm.com.mk",
+      "description" : "Централен регистар на РСМ"
+    }, {
+      "name" : "Државен завод за статистика",
+      "url" : "https://stat.gov.mk",
+      "description" : "Статистички податоци"
+    }, {
+      "name" : "е-Управа",
+      "url" : "https://uslugi.gov.mk",
+      "description" : "Државни е-услуги"
+    }, {
+      "name" : "МВР",
+      "url" : "https://mvr.gov.mk",
+      "description" : "Министерство за внатрешни работи"
+    }, {
+      "name" : "Народен правобранител",
+      "url" : "https://ombudsman.mk",
+      "description" : "Омбудсман на РСМ"
+    }, {
+      "name" : "Претседател",
+      "url" : "https://pretsedatel.mk",
+      "description" : "Кабинет на претседателот"
+    }, {
+      "name" : "Собрание",
+      "url" : "https://sobranie.mk",
+      "description" : "Собрание на РСМ"
+    }, {
+      "name" : "УЈП",
+      "url" : "https://ujp.gov.mk",
+      "description" : "Управа за јавни приходи"
+    }, {
+      "name" : "Уставен суд",
+      "url" : "https://ustavensud.mk",
+      "description" : "Уставен суд на РСМ"
+    }, {
+      "name" : "Влада на РСМ",
+      "url" : "https://vlada.mk",
+      "description" : "Влада на Република Северна Македонија"
+    } ],
+    "hasPage" : false
+  }, {
+    "id" : "banki",
+    "title" : "Банки и финансии",
+    "icon" : "landmark",
+    "links" : [ {
+      "name" : "Халк Банка",
+      "url" : "https://halkbank.mk",
+      "description" : "Халк Банка АД Скопје"
+    }, {
+      "name" : "Комерцијална банка",
+      "url" : "https://kb.mk",
+      "description" : "Комерцијална банка АД Скопје"
+    }, {
+      "name" : "Македонска берза",
+      "url" : "https://mse.mk",
+      "description" : "Македонска берза на хартии од вредност"
+    }, {
+      "name" : "НБРМ",
+      "url" : "https://nbrm.mk",
+      "description" : "Народна банка на РСМ"
+    }, {
+      "name" : "НЛБ Банка",
+      "url" : "https://nlb.mk",
+      "description" : "НЛБ Банка АД Скопје"
+    }, {
+      "name" : "ПроКредит Банка",
+      "url" : "https://procreditbank.com.mk",
+      "description" : "ПроКредит Банка АД Скопје"
+    }, {
+      "name" : "Шпаркасе Банка",
+      "url" : "https://sparkasse.mk",
+      "description" : "Шпаркасе Банка Македонија"
+    }, {
+      "name" : "Стопанска банка",
+      "url" : "https://stb.com.mk",
+      "description" : "Стопанска банка АД Скопје"
+    }, {
+      "name" : "УНИБанка",
+      "url" : "https://unibank.com.mk",
+      "description" : "УНИБанка АД Скопје"
+    } ],
+    "hasPage" : false
+  }, {
+    "id" : "obrazovanie",
+    "title" : "Образование",
+    "icon" : "graduation-cap",
+    "links" : [ {
+      "name" : "Американ колеџ Скопје",
+      "url" : "https://aac.edu.mk",
+      "description" : "American College Skopje"
+    }, {
+      "name" : "Биро за развој на образованието",
+      "url" : "https://bro.gov.mk",
+      "description" : "БРО"
+    }, {
+      "name" : "Еду.мк",
+      "url" : "https://edu.mk",
+      "description" : "Образовен портал"
+    }, {
+      "name" : "Министерство за образование",
+      "url" : "https://mon.gov.mk",
+      "description" : "МОН"
+    }, {
+      "name" : "МСУ",
+      "url" : "https://msu.edu.mk",
+      "description" : "Меѓународен славјански универзитет"
+    }, {
+      "name" : "УГД",
+      "url" : "https://ugd.edu.mk",
+      "description" : "Универзитет Гоце Делчев - Штип"
+    }, {
+      "name" : "УКИМ",
+      "url" : "https://ukim.edu.mk",
+      "description" : "Универзитет Св. Кирил и Методиј - Скопје"
+    }, {
+      "name" : "УКЛО",
+      "url" : "https://uklo.edu.mk",
+      "description" : "Универзитет Св. Климент Охридски - Битола"
+    } ],
+    "hasPage" : true
+  }, {
+    "id" : "biznis",
+    "title" : "Бизнис и економија",
+    "icon" : "briefcase",
+    "links" : [ {
+      "name" : "Бизнис Инфо",
+      "url" : "https://biznisinfo.mk",
+      "description" : "Бизнис портал"
+    }, {
+      "name" : "БизнисМрежа",
+      "url" : "https://biznismreza.mk",
+      "description" : "База на бизнис информации"
+    }, {
+      "name" : "Економија и бизнис",
+      "url" : "https://ebizmagazine.com",
+      "description" : "Магазин"
+    }, {
+      "name" : "Фактор",
+      "url" : "https://faktor.mk",
+      "description" : "Портал за економија и бизнис"
+    }, {
+      "name" : "Капитал",
+      "url" : "https://kapital.mk",
+      "description" : "Бизнис портал"
+    }, {
+      "name" : "Лидер",
+      "url" : "https://lider.mk",
+      "description" : "Бизнис портал"
+    }, {
+      "name" : "Стопанска комора",
+      "url" : "https://mchamber.mk",
+      "description" : "Стопанска комора на Македонија"
+    } ],
+    "hasPage" : false
+  }, {
+    "id" : "tehnologija",
+    "title" : "Технологија",
+    "icon" : "microchip",
+    "links" : [ {
+      "name" : "Емитер",
+      "url" : "https://emiter.com.mk",
+      "description" : "Списание за наука и техника"
+    }, {
+      "name" : "Иновативност",
+      "url" : "https://inovativnost.mk",
+      "description" : "Портал за иновации и претприемништво"
+    }, {
+      "name" : "ИТ.мк",
+      "url" : "https://it.mk",
+      "description" : "IT портал"
+    }, {
+      "name" : "Конект.мк",
+      "url" : "https://konekt.mk",
+      "description" : "Технологија и иновативни науки"
+    }, {
+      "name" : "Smartportal.mk",
+      "url" : "https://smartportal.mk",
+      "description" : "Портал за паметна технологија"
+    }, {
+      "name" : "USB.mk",
+      "url" : "https://usb.mk",
+      "description" : "Технологија, наука и интернет"
+    } ],
+    "hasPage" : false
+  }, {
+    "id" : "zabava",
+    "title" : "Забава и ТВ",
+    "icon" : "tv",
+    "links" : [ {
+      "name" : "Fakulteti.mk",
+      "url" : "https://fakulteti.mk",
+      "description" : "Магазин за млади"
+    }, {
+      "name" : "Sakam.mk",
+      "url" : "https://sakam.mk",
+      "description" : "Лајфстајл портал"
+    }, {
+      "name" : "Star.mk",
+      "url" : "https://star.mk",
+      "description" : "Забавен портал"
+    }, {
+      "name" : "ТВ Програма",
+      "url" : "https://tvprogram.mk",
+      "description" : "Телевизиски програми"
+    } ],
+    "hasPage" : false
+  }, {
+    "id" : "mapi",
+    "title" : "Карти, превоз и услуги",
+    "icon" : "map-location-dot",
+    "links" : [ {
+      "name" : "АМСМ",
+      "url" : "https://amsm.mk",
+      "description" : "Автомото сојуз на Македонија"
+    }, {
+      "name" : "Google Maps",
+      "url" : "https://maps.google.com",
+      "description" : "Карти и навигација"
+    }, {
+      "name" : "ЈСП Скопје",
+      "url" : "https://jsp.com.mk",
+      "description" : "Јавен градски превоз - Скопје"
+    }, {
+      "name" : "Македонски железници",
+      "url" : "https://mztransport.mk",
+      "description" : "Железнички превоз"
+    }, {
+      "name" : "Скопски аеродроми",
+      "url" : "https://airports.com.mk",
+      "description" : "Аеродроми во РСМ"
+    } ],
+    "hasPage" : false
+  }, {
+    "id" : "turizam",
+    "title" : "Туристички агенции",
+    "icon" : "plane",
+    "links" : [ {
+      "name" : "Arbotravel",
+      "url" : "https://arbotravel.com/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Atlantis",
+      "url" : "https://www.atlantis.mk/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Atlas Plus",
+      "url" : "https://atlasplus.mk/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Aurora",
+      "url" : "https://aurora.mk/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Balkan Fun",
+      "url" : "https://balkanfun.mk/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Camellia Travel",
+      "url" : "https://www.camelliatravel.com.mk/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Diplomatic Travel",
+      "url" : "https://www.diplomatic.com.mk/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "ETC Travel",
+      "url" : "https://etc.mk/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Fibula Air Travel",
+      "url" : "https://www.fibula.com.mk/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Fly Turizam",
+      "url" : "https://www.flyturizam.com/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Iguana",
+      "url" : "https://iguana.com.mk/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Inex",
+      "url" : "https://inex.com.mk/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "InTravel",
+      "url" : "https://intravel.mk/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "JK Travel",
+      "url" : "https://jk.mk/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Jungle Tribe",
+      "url" : "https://www.jungletribe.mk/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Kondor Travel",
+      "url" : "https://kondortravel.com/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Магелан Травел",
+      "url" : "https://magelantravel.mk/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Net-Bay Travel",
+      "url" : "https://www.net-bay.com.mk/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Papillon",
+      "url" : "https://papillon.com.mk/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Pilot Travel",
+      "url" : "https://www.pilottravel.com.mk/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Puzzle Travel",
+      "url" : "https://puzzlegroup.mk/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Savana Travel",
+      "url" : "https://www.savana.travel/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Скаут",
+      "url" : "https://skaut.mk/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Terra Travel",
+      "url" : "https://terratravel.com.mk/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Voyager",
+      "url" : "https://voyager.com.mk/",
+      "description" : "Туристичка агенција"
+    }, {
+      "name" : "Waikiki",
+      "url" : "https://www.waikiki.mk/",
+      "description" : "Туристичка агенција"
+    } ],
+    "hasPage" : false
+  }, {
+    "id" : "pošta",
+    "title" : "Пошта, комунални и е-услуги",
+    "icon" : "envelope",
+    "links" : [ {
+      "name" : "А1 Македонија",
+      "url" : "https://a1.mk",
+      "description" : "Телекомуникации"
+    }, {
+      "name" : "АД ЕСМ",
+      "url" : "https://esm.com.mk",
+      "description" : "Електрани на Северна Македонија"
+    }, {
+      "name" : "ЕВН",
+      "url" : "https://evn.mk",
+      "description" : "Дистрибуција на електрична енергија"
+    }, {
+      "name" : "Македонски телеком",
+      "url" : "https://telekom.mk",
+      "description" : "Телекомуникации"
+    }, {
+      "name" : "Пошта на Северна Македонија",
+      "url" : "https://posta.com.mk",
+      "description" : "Јавно претпријатие"
+    } ],
+    "hasPage" : false
+  }, {
+    "id" : "shopping",
+    "title" : "Шопинг",
+    "icon" : "cart-shopping",
+    "links" : [ {
+      "name" : "Ananas",
+      "url" : "https://ananas.mk/",
+      "description" : "Онлајн продавница"
+    }, {
+      "name" : "Anhoch",
+      "url" : "https://www.anhoch.com/",
+      "description" : "Компјутери и техника"
+    }, {
+      "name" : "DDStore",
+      "url" : "https://ddstore.mk/",
+      "description" : "Компјутери и ИТ опрема"
+    }, {
+      "name" : "eKupi",
+      "url" : "https://www.ekupi.mk/",
+      "description" : "Онлајн продавница"
+    }, {
+      "name" : "Нептун",
+      "url" : "https://www.neptun.mk/",
+      "description" : "Техника и бела техника"
+    }, {
+      "name" : "Pazar3",
+      "url" : "https://www.pazar3.mk/",
+      "description" : "Огласи"
+    }, {
+      "name" : "Reklama5",
+      "url" : "https://reklama5.mk/",
+      "description" : "Огласи"
+    }, {
+      "name" : "Setec",
+      "url" : "https://setec.mk/",
+      "description" : "Техника и компјутери"
+    }, {
+      "name" : "Стокомак",
+      "url" : "https://www.stokomak.com.mk/",
+      "description" : "Супермаркет со онлајн продажба"
+    }, {
+      "name" : "Техномаркет",
+      "url" : "https://tehnomarket.com.mk/",
+      "description" : "Техника и бела техника"
+    } ],
+    "hasPage" : false
+  }, {
+    "id" : "socijalni",
+    "title" : "Социјални медиуми",
+    "icon" : "users",
+    "links" : [ {
+      "name" : "Facebook",
+      "url" : "https://www.facebook.com/",
+      "description" : "Социјална мрежа"
+    }, {
+      "name" : "Instagram",
+      "url" : "https://www.instagram.com/",
+      "description" : "Социјална мрежа"
+    }, {
+      "name" : "LinkedIn",
+      "url" : "https://www.linkedin.com/",
+      "description" : "Професионална мрежа"
+    }, {
+      "name" : "Telegram",
+      "url" : "https://telegram.org/",
+      "description" : "Апликација за пораки"
+    }, {
+      "name" : "TikTok",
+      "url" : "https://www.tiktok.com/",
+      "description" : "Видео социјална мрежа"
+    }, {
+      "name" : "Viber",
+      "url" : "https://www.viber.com/",
+      "description" : "Апликација за пораки"
+    }, {
+      "name" : "X",
+      "url" : "https://x.com/",
+      "description" : "Социјална мрежа"
+    }, {
+      "name" : "YouTube",
+      "url" : "https://www.youtube.com/",
+      "description" : "Видео платформа"
+    } ],
+    "hasPage" : false
+  } ],
+  "pages" : {
+    "obrazovanie" : {
+      "id" : "obrazovanie",
+      "title" : "Образование",
+      "icon" : "graduation-cap",
+      "sections" : [ {
+        "title" : "Факултети",
+        "links" : [ {
+          "name" : "ФЕИТ",
+          "url" : "https://feit.ukim.edu.mk/",
+          "description" : "Факултет за електротехника и информациски технологии, УКИМ"
+        }, {
+          "name" : "ФИНКИ",
+          "url" : "https://finki.ukim.mk/",
+          "description" : "Факултет за информатички науки и компјутерско инженерство, УКИМ"
+        }, {
+          "name" : "Воена академија",
+          "url" : "http://ma.edu.mk",
+          "description" : "Воена академија „Генерал Михаило Апостолски“"
+        } ]
+      }, {
+        "title" : "Универзитети",
+        "links" : [ {
+          "name" : "Американ колеџ",
+          "url" : "https://aac.edu.mk/",
+          "description" : "Американ колеџ Скопје"
+        }, {
+          "name" : "МСУ",
+          "url" : "https://msu.edu.mk/",
+          "description" : "Меѓународен славјански универзитет"
+        }, {
+          "name" : "УГД",
+          "url" : "https://www.ugd.edu.mk/",
+          "description" : "Универзитет „Гоце Делчев“ – Штип"
+        }, {
+          "name" : "УЈИЕ",
+          "url" : "https://www.seeu.edu.mk/",
+          "description" : "Универзитет на Југоисточна Европа – Тетово"
+        }, {
+          "name" : "УКИМ",
+          "url" : "https://www.ukim.edu.mk/",
+          "description" : "Универзитет „Св. Кирил и Методиј“ – Скопје"
+        }, {
+          "name" : "УКЛО",
+          "url" : "https://uklo.edu.mk/",
+          "description" : "Универзитет „Св. Климент Охридски“ – Битола"
+        }, {
+          "name" : "Универзитет во Тетово",
+          "url" : "https://unite.edu.mk/",
+          "description" : "Државен универзитет во Тетово"
+        }, {
+          "name" : "Универзитет „Мајка Тереза“",
+          "url" : "https://unt.edu.mk/",
+          "description" : "Универзитет „Мајка Тереза“ – Скопје"
+        } ]
+      }, {
+        "title" : "Државни институции",
+        "links" : [ {
+          "name" : "АКВО",
+          "url" : "https://www.akvo.mk/",
+          "description" : "Агенција за квалитет во високото образование"
+        }, {
+          "name" : "БРО",
+          "url" : "https://bro.gov.mk/",
+          "description" : "Биро за развој на образованието"
+        }, {
+          "name" : "ЦСОО",
+          "url" : "https://csoo.edu.mk/",
+          "description" : "Центар за стручно образование и обука"
+        }, {
+          "name" : "ДИЦ",
+          "url" : "https://dic.edu.mk/",
+          "description" : "Државен испитен центар"
+        }, {
+          "name" : "МОН",
+          "url" : "https://mon.gov.mk/",
+          "description" : "Министерство за образование и наука"
+        } ]
+      }, {
+        "title" : "Институти",
+        "links" : [ {
+          "name" : "ИМЈ",
+          "url" : "https://imj.ukim.edu.mk/",
+          "description" : "Институт за македонски јазик „Крсте Мисирков“"
+        }, {
+          "name" : "ИНИ",
+          "url" : "https://ini.ukim.mk/",
+          "description" : "Институт за национална историја"
+        }, {
+          "name" : "Институт за фолклор",
+          "url" : "https://ifmc.ukim.mk/",
+          "description" : "Институт за фолклор „Марко Цепенков“"
+        }, {
+          "name" : "ИСППИ",
+          "url" : "https://isppi.ukim.edu.mk/",
+          "description" : "Институт за социолошки и политичко-правни истражувања"
+        }, {
+          "name" : "ИЗИИС",
+          "url" : "https://www.iziis.ukim.edu.mk/",
+          "description" : "Институт за земјотресно инженерство и инженерска сеизмологија"
+        }, {
+          "name" : "МАНУ",
+          "url" : "https://manu.edu.mk/",
+          "description" : "Македонска академија на науките и уметностите"
+        } ]
+      }, {
+        "title" : "Библиотеки",
+        "links" : [ {
+          "name" : "Градска библиотека",
+          "url" : "http://www.gbsk.mk/",
+          "description" : "Градска библиотека „Браќа Миладиновци“ – Скопје"
+        }, {
+          "name" : "НУБ",
+          "url" : "https://nubsk.edu.mk/",
+          "description" : "Национална и универзитетска библиотека „Св. Климент Охридски“ – Скопје"
+        }, {
+          "name" : "Универзитетска библиотека – Битола",
+          "url" : "https://nuub.mk/",
+          "description" : "Универзитетска библиотека „Св. Климент Охридски“ – Битола"
+        } ]
+      }, {
+        "title" : "Стипендии и размена",
+        "links" : [ {
+          "name" : "Еразмус+",
+          "url" : "https://erasmus-plus.ec.europa.eu/",
+          "description" : "Програма на Европската унија за образование и мобилност"
+        }, {
+          "name" : "EURAXESS Македонија",
+          "url" : "https://www.euraxess.mk/",
+          "description" : "Работни места и мобилност за истражувачи"
+        }, {
+          "name" : "НАЕОП",
+          "url" : "https://www.na.org.mk/",
+          "description" : "Национална агенција за европски образовни програми и мобилност"
+        } ]
+      } ]
+    }
+  }
+}

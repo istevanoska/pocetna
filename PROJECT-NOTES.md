@@ -92,6 +92,31 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
 
 ## Changelog
 
+- 2026-09-14 — `encode zstd gzip` in both proxying blocks of the `Caddyfile`. zstd
+  compresses the prerendered HTML better than gzip; Caddy negotiates per request and
+  falls back to gzip for clients that do not advertise zstd, so nothing is lost. Needs
+  the caddy container recreated after the deploy, not just reloaded — see Gotchas.
+  Not deployed.
+- 2026-09-14 — `referrerpolicy="no-referrer"` on the four favicon `<img>` tags, so the
+  per-link lookups to Google's favicon service no longer carry `pocetna.mk` as the
+  referrer. The icons already had `loading="lazy"` with explicit width/height, so the
+  "~150 favicon requests per page load" in the old audit was never true in practice —
+  only icons near the top load on arrival. Self-hosting them was considered and dropped:
+  Google's service is CDN-backed, and serving 150 icons from one Hetzner box is not
+  obviously faster. Not built, not verified, not deployed.
+- 2026-09-14 — Category id `pošta` renamed to `posta` (`LinkDirectoryService.kt` and the
+  colour key in `category-color.ts` — the only two occurrences). The id is the homepage
+  anchor and would become the URL the day that category gets a page; `š` was
+  percent-encoding to `po%C5%A1ta`. Titles and link text are untouched. Needs
+  `gradlew exportLinks` — the id is in the snapshot. Not built, not verified, not deployed.
+- 2026-09-14 — The four PNGs in `frontend/public/` recompressed with pngquant
+  (quality 70-95): logo 435→58 kB, logo-light 342→37 kB, icon 117→57 kB,
+  apple-touch-icon 24→15 kB — 918 kB down to 166 kB, and `logo.png` is on every page
+  view. Lossy palette quantization, but composited over white the mean per-channel
+  difference is 0.2/255 and under 0.5% of pixels differ by more than 8; side by side at
+  full size the logos are indistinguishable. Same filenames, sizes and transparency, so
+  no markup changed. `favicon.ico` (69 kB) left alone — an ICO container needs different
+  handling. Not built, not verified, not deployed.
 - 2026-09-14 — SEO: JSON-LD. `seo.service.ts` gained `jsonLd(data)`, which writes one
   `<script type="application/ld+json">` into `<head>` with **textContent** — never
   innerHTML, which throws in the prerenderer's DOM. The homepage emits a `WebSite` +
@@ -99,7 +124,7 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
   `BreadcrumbList` (Почетна.мк → its title) in the same call that sets its title, so
   future category pages get it for free; a bad id clears the block. No `SearchAction`:
   Google removed the sitelinks search box on 2024-11-21, so that markup renders nothing.
-  Not built, not verified, not deployed.
+  Committed and deployed by Goce.
 - 2026-09-14 — SEO: Open Graph + Twitter Card. `seo.service.ts` now also sets og:title,
   description, url, type, site_name, locale, image (with width/height/alt) and the
   twitter:* pair, per route, from the same values as the title — so a shared category
@@ -178,10 +203,8 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
 - Roll the visible link descriptions out to the other category pages as they are added
   (same three lines of markup, styles already in `category-page.scss`).
 - **SEO, remaining** (audit 2026-09-12; prerendering, per-route meta, robots/sitemap,
-  www→apex, Open Graph and JSON-LD are all done): rename the `pošta` category id to
-  `posta` before it ever gets a page; compress the ~1 MB of PNG logos (Google fetches
-  `logo.png` for the Organization markup); self-host the ~150 Google favicon requests
-  and the Google Fonts; `zstd` in Caddy. The property is in Search Console as of
+  www→apex, Open Graph and JSON-LD are all done): self-host the Google Fonts.
+  (Favicons: decided against self-hosting, see the changelog.) The property is in Search Console as of
   2026-09-14 — check Pages and the structured-data reports there in a few days.
 - Mount the caddy config as a directory (`./caddy/:/etc/caddy/`) instead of a single
   file, so a replaced `Caddyfile` is visible in the container without recreating it.

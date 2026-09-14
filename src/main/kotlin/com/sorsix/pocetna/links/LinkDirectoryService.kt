@@ -159,7 +159,7 @@ class LinkDirectoryService {
             ),
         ),
         LinkCategory(
-            id = "pošta", title = "Пошта, комунални и е-услуги", icon = "envelope",
+            id = "posta", title = "Пошта, комунални и е-услуги", icon = "envelope",
             links = listOf(
                 SiteLink("А1 Македонија", "https://a1.mk", "Телекомуникации"),
                 SiteLink("АД ЕСМ", "https://esm.com.mk", "Електрани на Северна Македонија"),

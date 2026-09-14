@@ -1,7 +1,7 @@
 # Serves your domain over HTTPS (certificate is obtained & renewed automatically)
 # and forwards traffic to the Spring Boot app. Set DOMAIN in the .env file.
 {$DOMAIN} {
-	encode gzip
+	encode zstd gzip
 	reverse_proxy app:8080
 }
 
@@ -15,6 +15,6 @@ www.{$DOMAIN} {
 # Fallback: lets you preview the site via the server's IP over http://
 # (plain HTTP, no certificate) before the domain's DNS is pointed here.
 http:// {
-	encode gzip
+	encode zstd gzip
 	reverse_proxy app:8080
 }

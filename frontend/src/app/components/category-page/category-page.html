@@ -29,7 +29,7 @@
             @for (link of section.links; track link.url) {
               <li>
                 <a [href]="link.url" target="_blank" rel="noopener">
-                  <img class="panel__favicon" [src]="favicon(link.url)" alt="" loading="lazy" width="18" height="18" />
+                  <img class="panel__favicon" [src]="favicon(link.url)" alt="" loading="lazy" referrerpolicy="no-referrer" width="18" height="18" />
                   <span class="panel__link-body">
                     <span class="panel__link-text">{{ link.name }}</span>
                     @if (link.description) {

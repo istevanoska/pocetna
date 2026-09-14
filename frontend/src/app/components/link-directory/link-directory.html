@@ -29,7 +29,7 @@
                 @for (link of visibleLinks(item.category); track link.url) {
                   <li>
                     <a [href]="link.url" target="_blank" rel="noopener" [title]="link.description">
-                      <img class="panel__favicon" [src]="favicon(link.url)" alt="" loading="lazy" width="18" height="18" />
+                      <img class="panel__favicon" [src]="favicon(link.url)" alt="" loading="lazy" referrerpolicy="no-referrer" width="18" height="18" />
                       <span class="panel__link-text">{{ link.name }}</span>
                     </a>
                   </li>
@@ -51,7 +51,7 @@
                             [title]="link.description"
                             [attr.tabindex]="isExpanded(item.category.id) ? null : -1"
                           >
-                            <img class="panel__favicon" [src]="favicon(link.url)" alt="" loading="lazy" width="18" height="18" />
+                            <img class="panel__favicon" [src]="favicon(link.url)" alt="" loading="lazy" referrerpolicy="no-referrer" width="18" height="18" />
                             <span class="panel__link-text">{{ link.name }}</span>
                           </a>
                         </li>
@@ -134,7 +134,7 @@
                 @for (link of newsAggregators; track link.url) {
                   <li>
                     <a [href]="link.url" target="_blank" rel="noopener" [title]="link.description">
-                      <img class="panel__favicon" [src]="favicon(link.url)" alt="" loading="lazy" width="18" height="18" />
+                      <img class="panel__favicon" [src]="favicon(link.url)" alt="" loading="lazy" referrerpolicy="no-referrer" width="18" height="18" />
                       <span class="panel__link-text">{{ link.name }}</span>
                     </a>
                   </li>

@@ -73,6 +73,33 @@ export class SeoService {
     this.meta.updateTag({ name: 'twitter:image:alt', content: OG_IMAGE_ALT });
   }
 
+  /**
+   * Replace the page's JSON-LD block, or remove it when passed null.
+   *
+   * Written with textContent, never innerHTML: the prerenderer's DOM has no HTML
+   * parser, and an innerHTML binding there throws NotYetImplemented and silently
+   * abandons the rest of the render — the bug that once cost twelve category panels.
+   */
+  jsonLd(data: unknown | null): void {
+    const head = this.doc.head;
+    if (!head) return;
+
+    let script = head.querySelector<HTMLScriptElement>('script[type="application/ld+json"]');
+
+    if (!data) {
+      script?.remove();
+      return;
+    }
+
+    if (!script) {
+      script = this.doc.createElement('script');
+      script.setAttribute('type', 'application/ld+json');
+      head.appendChild(script);
+    }
+
+    script.textContent = JSON.stringify(data);
+  }
+
   private canonical(url: string): void {
     const head = this.doc.head;
     if (!head) return;

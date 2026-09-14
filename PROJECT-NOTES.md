@@ -92,6 +92,14 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
 
 ## Changelog
 
+- 2026-09-14 — SEO: JSON-LD. `seo.service.ts` gained `jsonLd(data)`, which writes one
+  `<script type="application/ld+json">` into `<head>` with **textContent** — never
+  innerHTML, which throws in the prerenderer's DOM. The homepage emits a `WebSite` +
+  `Organization` graph (site name, alternateName, mk-MK, logo); a category page emits a
+  `BreadcrumbList` (Почетна.мк → its title) in the same call that sets its title, so
+  future category pages get it for free; a bad id clears the block. No `SearchAction`:
+  Google removed the sitelinks search box on 2024-11-21, so that markup renders nothing.
+  Not built, not verified, not deployed.
 - 2026-09-14 — SEO: Open Graph + Twitter Card. `seo.service.ts` now also sets og:title,
   description, url, type, site_name, locale, image (with width/height/alt) and the
   twitter:* pair, per route, from the same values as the title — so a shared category
@@ -100,7 +108,10 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
   70 kB, generated from `logo.png`; its tagline is set in DejaVu Sans, not the site's
   Inter, because the sandbox cannot reach Google Fonts. No social scraper runs
   JavaScript, so this works only because the tags are in the prerendered HTML.
-  Not built, not verified, not deployed.
+  Deployed and verified live with `curl.exe -s https://pocetna.mk/ | findstr og:` —
+  homepage and /obrazovanie each carry their own title, canonical and og:*; robots.txt
+  returns 200. Facebook's Sharing Debugger kept showing og:image as inferred until
+  "Scrape Again": every social platform caches the first scrape of a URL hard.
 - 2026-09-14 — SEO: `www.pocetna.mk` now 301s to the apex instead of serving the whole
   site a second time. The `Caddyfile` splits the two hostnames into their own blocks:
   the apex proxies to the app, `www` only redirects (`redir ... permanent`, `{uri}`
@@ -166,10 +177,12 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
 
 - Roll the visible link descriptions out to the other category pages as they are added
   (same three lines of markup, styles already in `category-page.scss`).
-- **SEO, remaining after prerendering** (audit 2026-09-12, in impact order): JSON-LD (`WebSite` +
-  `SearchAction`, `Organization`, `BreadcrumbList`); rename the `pošta` category id to `posta`
-  before it ever gets a page; compress the ~1 MB of PNG logos; self-host the ~150 Google
-  favicon requests and the Google Fonts; `zstd` in Caddy; verify in Search Console.
+- **SEO, remaining** (audit 2026-09-12; prerendering, per-route meta, robots/sitemap,
+  www→apex, Open Graph and JSON-LD are all done): rename the `pošta` category id to
+  `posta` before it ever gets a page; compress the ~1 MB of PNG logos (Google fetches
+  `logo.png` for the Organization markup); self-host the ~150 Google favicon requests
+  and the Google Fonts; `zstd` in Caddy. The property is in Search Console as of
+  2026-09-14 — check Pages and the structured-data reports there in a few days.
 - Mount the caddy config as a directory (`./caddy/:/etc/caddy/`) instead of a single
   file, so a replaced `Caddyfile` is visible in the container without recreating it.
 - Render the icon set without `[innerHTML]` (structured path data + a template loop)
@@ -189,6 +202,11 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
 
 ## Gotchas
 
+- **Check live HTML with `curl.exe`, not a summarising fetcher.** Claude's WebFetch
+  reported the homepage as having no og: tags and robots.txt as 404 when both were
+  live and correct — it normalises and caches. `curl.exe -s <url> | findstr /C:"og:"`
+  is the source of truth. In PowerShell, `curl` is `Invoke-WebRequest`, so always spell
+  it `curl.exe`; the console shows Cyrillic as `?` even when the bytes are correct.
 - **A `Caddyfile` change needs the caddy container recreated — a reload is not enough.**
   `docker-compose.yml` bind-mounts the single file (`./Caddyfile:/etc/caddy/Caddyfile`),
   and a file bind mount is bound to that file's *inode*. `git pull` does not edit in

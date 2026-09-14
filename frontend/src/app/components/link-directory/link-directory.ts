@@ -8,7 +8,7 @@ import { weatherIconName } from '../../core/weather-icon';
 import { faviconUrl } from '../../core/favicon';
 import { categoryColor } from '../../core/category-color';
 import { quoteOfTheDay, DailyQuote } from '../../core/quotes';
-import { SeoService } from '../../core/seo.service';
+import { SeoService, SITE_URL } from '../../core/seo.service';
 import { Icon } from '../../shared/icon/icon';
 
 type GridItem =
@@ -47,6 +47,33 @@ const TODAY_AFTER = 8;
 const VISIBLE_LINKS = 10;
 
 const HOME_TITLE = 'Почетна.мк — македонски сајтови, вести, време и курсна листа';
+
+/**
+ * WebSite is what lets Google show "Почетна.мк" as the site name above the URL instead
+ * of guessing from the domain; Organization carries the name and logo. No SearchAction:
+ * Google removed the sitelinks search box in November 2024, so it would render nothing.
+ */
+const HOME_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      url: `${SITE_URL}/`,
+      name: 'Почетна.мк',
+      alternateName: 'pocetna.mk',
+      inLanguage: 'mk-MK',
+      publisher: { '@id': `${SITE_URL}/#organization` },
+    },
+    {
+      '@type': 'Organization',
+      '@id': `${SITE_URL}/#organization`,
+      name: 'Почетна.мк',
+      url: `${SITE_URL}/`,
+      logo: `${SITE_URL}/logo.png`,
+    },
+  ],
+};
 
 @Component({
   selector: 'app-link-directory',
@@ -114,6 +141,7 @@ export class LinkDirectory implements OnInit {
 
   ngOnInit(): void {
     this.seo.set({ title: HOME_TITLE, path: '/' });
+    this.seo.jsonLd(HOME_JSON_LD);
 
     this.api.getLinks().subscribe({
       next: (data) => {

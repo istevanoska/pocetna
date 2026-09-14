@@ -6,7 +6,7 @@ import { CategoryPageData } from '../../core/models';
 import { categoryIcon } from '../../core/category-icon-map';
 import { categoryColor } from '../../core/category-color';
 import { faviconUrl } from '../../core/favicon';
-import { SeoService } from '../../core/seo.service';
+import { SeoService, SITE_URL } from '../../core/seo.service';
 import { Icon } from '../../shared/icon/icon';
 
 const NOT_FOUND_TITLE = 'Страницата не постои — Почетна.мк';
@@ -43,11 +43,21 @@ export class CategoryPage {
             description: data.description,
             path: `/${id}`,
           });
+          // Lets the page show as "Почетна.мк › Образование" in search results.
+          this.seo.jsonLd({
+            '@context': 'https://schema.org',
+            '@type': 'BreadcrumbList',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Почетна.мк', item: `${SITE_URL}/` },
+              { '@type': 'ListItem', position: 2, name: data.title, item: `${SITE_URL}/${id}` },
+            ],
+          });
         },
         error: () => {
           this.notFound.set(true);
           this.loading.set(false);
           this.seo.set({ title: NOT_FOUND_TITLE, path: `/${id}` });
+          this.seo.jsonLd(null);
         },
       });
     });

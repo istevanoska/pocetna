@@ -92,22 +92,36 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
 
 ## Changelog
 
+- 2026-09-14 — SEO: Open Graph + Twitter Card. `seo.service.ts` now also sets og:title,
+  description, url, type, site_name, locale, image (with width/height/alt) and the
+  twitter:* pair, per route, from the same values as the title — so a shared category
+  link previews as itself, not as the homepage. `twitter:card=summary_large_image` is
+  the one X does not take from og:. The card is `frontend/public/og.png`, 1200×630,
+  70 kB, generated from `logo.png`; its tagline is set in DejaVu Sans, not the site's
+  Inter, because the sandbox cannot reach Google Fonts. No social scraper runs
+  JavaScript, so this works only because the tags are in the prerendered HTML.
+  Not built, not verified, not deployed.
+- 2026-09-14 — SEO: `www.pocetna.mk` now 301s to the apex instead of serving the whole
+  site a second time. The `Caddyfile` splits the two hostnames into their own blocks:
+  the apex proxies to the app, `www` only redirects (`redir ... permanent`, `{uri}`
+  keeps path and query). Caddy still issues a certificate for `www` — without one the
+  redirect would fail on TLS before it fired. Deployed and verified: `www.pocetna.mk`
+  answers 301 with `Location: https://pocetna.mk/`.
 - 2026-09-14 — SEO: per-route `<title>`, description and canonical. New
   `core/seo.service.ts` sets all three; the homepage and every category page call it,
   so the values are in the prerendered HTML, not added after bootstrap. `CategoryPage`
   gained a `description` field in Kotlin (and in `models.ts`) so each page's copy lives
   in `LinkDirectoryService.kt` with everything else; a page without one falls back to
   the site description. `index.html` keeps its title and description as the fallback.
-  Needs `gradlew exportLinks` — the model changed. Goce ran exportLinks and the build
-  and confirmed the prerendered output; not committed and not deployed yet.
+  Needs `gradlew exportLinks` — the model changed. Verified in the prerendered output
+  and deployed.
 - 2026-09-14 — SEO: `/robots.txt` and `/sitemap.xml`, both served by the new
   `config/SeoController.kt`. robots allows everything except `/api/` and points at the
   sitemap; the sitemap lists the homepage plus every category with `hasPage = true`,
   read from `LinkDirectoryService`, so a new category page appears in it with no extra
   work and the sitemap can never list a URL that 404s. The domain comes from
   `app.site.base-url` (`SITE_BASE_URL`, default `https://pocetna.mk`) in
-  `application.properties`. Goce ran it locally and confirmed both endpoints serve
-  correctly; not committed and not deployed yet.
+  `application.properties`. Verified locally and deployed.
 - 2026-09-13 — **Агрегатори на вести** moved to the top of the grid, above the first
   category. It is a frontend-only panel (`NEWS_AGGREGATORS` in `link-directory.ts`),
   not a backend category; it is now its own grid item (`kind: 'aggregators'`) pushed
@@ -152,12 +166,12 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
 
 - Roll the visible link descriptions out to the other category pages as they are added
   (same three lines of markup, styles already in `category-page.scss`).
-- **SEO, remaining after prerendering** (audit 2026-09-12, in impact order): redirect
-  `www` → apex in the `Caddyfile` (both currently serve 200); Open Graph + Twitter
-  Card with a 1200×630 image; JSON-LD (`WebSite` +
+- **SEO, remaining after prerendering** (audit 2026-09-12, in impact order): JSON-LD (`WebSite` +
   `SearchAction`, `Organization`, `BreadcrumbList`); rename the `pošta` category id to `posta`
   before it ever gets a page; compress the ~1 MB of PNG logos; self-host the ~150 Google
   favicon requests and the Google Fonts; `zstd` in Caddy; verify in Search Console.
+- Mount the caddy config as a directory (`./caddy/:/etc/caddy/`) instead of a single
+  file, so a replaced `Caddyfile` is visible in the container without recreating it.
 - Render the icon set without `[innerHTML]` (structured path data + a template loop)
   so icons appear in the prerendered HTML instead of only after bootstrap. 40 icons,
   six element types.
@@ -175,6 +189,16 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
 
 ## Gotchas
 
+- **A `Caddyfile` change needs the caddy container recreated — a reload is not enough.**
+  `docker-compose.yml` bind-mounts the single file (`./Caddyfile:/etc/caddy/Caddyfile`),
+  and a file bind mount is bound to that file's *inode*. `git pull` does not edit in
+  place: it writes a new file and renames it over the old one, so the container keeps
+  reading the old inode and the new config never appears inside it. `caddy reload` then
+  logs `config is unchanged` and looks like it worked. After a deploy that touched it:
+  `ssh <server> "cd pocetna && docker compose up -d --force-recreate caddy"`, a couple of
+  seconds of downtime; certificates live in a volume and are not re-issued. Diagnosing
+  this cost half an hour of "why is www still 200" — the tell was `config is unchanged`
+  in `docker compose logs caddy`.
 - **Backend changes need a restart.** 4200 hot-reloads, but `/api/**` is Spring;
   Kotlin edits only appear after `bootRun` restarts. A stale `build/classes` once
   made an edited link still show up.

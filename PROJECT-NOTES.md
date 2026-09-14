@@ -92,13 +92,21 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
 
 ## Changelog
 
+- 2026-09-14 — SEO: per-route `<title>`, description and canonical. New
+  `core/seo.service.ts` sets all three; the homepage and every category page call it,
+  so the values are in the prerendered HTML, not added after bootstrap. `CategoryPage`
+  gained a `description` field in Kotlin (and in `models.ts`) so each page's copy lives
+  in `LinkDirectoryService.kt` with everything else; a page without one falls back to
+  the site description. `index.html` keeps its title and description as the fallback.
+  Needs `gradlew exportLinks` — the model changed. Not built, not verified, not deployed.
 - 2026-09-14 — SEO: `/robots.txt` and `/sitemap.xml`, both served by the new
   `config/SeoController.kt`. robots allows everything except `/api/` and points at the
   sitemap; the sitemap lists the homepage plus every category with `hasPage = true`,
   read from `LinkDirectoryService`, so a new category page appears in it with no extra
   work and the sitemap can never list a URL that 404s. The domain comes from
   `app.site.base-url` (`SITE_BASE_URL`, default `https://pocetna.mk`) in
-  `application.properties`. Not built, not verified, not deployed.
+  `application.properties`. Goce ran it locally and confirmed both endpoints serve
+  correctly; not committed and not deployed yet.
 - 2026-09-13 — **Агрегатори на вести** moved to the top of the grid, above the first
   category. It is a frontend-only panel (`NEWS_AGGREGATORS` in `link-directory.ts`),
   not a backend category; it is now its own grid item (`kind: 'aggregators'`) pushed
@@ -143,10 +151,9 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
 
 - Roll the visible link descriptions out to the other category pages as they are added
   (same three lines of markup, styles already in `category-page.scss`).
-- **SEO, remaining after prerendering** (audit 2026-09-12, in impact order): per-route
-  `<title>`/description/canonical via Angular's `Title`/`Meta` (today every route serves
-  `pocetna.mk` and one description); redirect `www` → apex in the `Caddyfile` (both currently
-  serve 200, no canonical); Open Graph + Twitter Card with a 1200×630 image; JSON-LD (`WebSite` +
+- **SEO, remaining after prerendering** (audit 2026-09-12, in impact order): redirect
+  `www` → apex in the `Caddyfile` (both currently serve 200); Open Graph + Twitter
+  Card with a 1200×630 image; JSON-LD (`WebSite` +
   `SearchAction`, `Organization`, `BreadcrumbList`); rename the `pošta` category id to `posta`
   before it ever gets a page; compress the ~1 MB of PNG logos; self-host the ~150 Google
   favicon requests and the Google Fonts; `zstd` in Caddy; verify in Search Console.

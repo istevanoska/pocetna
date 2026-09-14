@@ -6,7 +6,10 @@ import { CategoryPageData } from '../../core/models';
 import { categoryIcon } from '../../core/category-icon-map';
 import { categoryColor } from '../../core/category-color';
 import { faviconUrl } from '../../core/favicon';
+import { SeoService } from '../../core/seo.service';
 import { Icon } from '../../shared/icon/icon';
+
+const NOT_FOUND_TITLE = 'Страницата не постои — Почетна.мк';
 
 @Component({
   selector: 'app-category-page',
@@ -18,6 +21,7 @@ import { Icon } from '../../shared/icon/icon';
 export class CategoryPage {
   private api = inject(ApiService);
   private route = inject(ActivatedRoute);
+  private seo = inject(SeoService);
 
   page = signal<CategoryPageData | null>(null);
   loading = signal(true);
@@ -34,10 +38,16 @@ export class CategoryPage {
         next: (data) => {
           this.page.set(data);
           this.loading.set(false);
+          this.seo.set({
+            title: `${data.title} — Почетна.мк`,
+            description: data.description,
+            path: `/${id}`,
+          });
         },
         error: () => {
           this.notFound.set(true);
           this.loading.set(false);
+          this.seo.set({ title: NOT_FOUND_TITLE, path: `/${id}` });
         },
       });
     });

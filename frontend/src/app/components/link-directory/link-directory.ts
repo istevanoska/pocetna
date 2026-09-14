@@ -8,6 +8,7 @@ import { weatherIconName } from '../../core/weather-icon';
 import { faviconUrl } from '../../core/favicon';
 import { categoryColor } from '../../core/category-color';
 import { quoteOfTheDay, DailyQuote } from '../../core/quotes';
+import { SeoService } from '../../core/seo.service';
 import { Icon } from '../../shared/icon/icon';
 
 type GridItem =
@@ -45,6 +46,8 @@ const TODAY_AFTER = 8;
 // Links shown in a category panel before the “повеќе...” toggle.
 const VISIBLE_LINKS = 10;
 
+const HOME_TITLE = 'Почетна.мк — македонски сајтови, вести, време и курсна листа';
+
 @Component({
   selector: 'app-link-directory',
   host: { class: 'layout__main' },
@@ -54,6 +57,7 @@ const VISIBLE_LINKS = 10;
 })
 export class LinkDirectory implements OnInit {
   private api = inject(ApiService);
+  private seo = inject(SeoService);
 
   categories = signal<LinkCategory[]>([]);
   weather = signal<CurrentWeather | null>(null);
@@ -109,6 +113,8 @@ export class LinkDirectory implements OnInit {
   });
 
   ngOnInit(): void {
+    this.seo.set({ title: HOME_TITLE, path: '/' });
+
     this.api.getLinks().subscribe({
       next: (data) => {
         this.categories.set(data);

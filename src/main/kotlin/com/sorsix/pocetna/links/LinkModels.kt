@@ -25,5 +25,7 @@ data class CategoryPage(
     val id: String,
     val title: String,
     val icon: String,
+    /** One sentence in Macedonian, served as the page's meta description. */
+    val description: String = "",
     val sections: List<CategorySection>,
 )

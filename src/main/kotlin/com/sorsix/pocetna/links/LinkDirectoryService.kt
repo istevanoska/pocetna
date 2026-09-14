@@ -201,6 +201,8 @@ class LinkDirectoryService {
     private val pages: Map<String, CategoryPage> = listOf(
         CategoryPage(
             id = "obrazovanie", title = "Образование", icon = "graduation-cap",
+            description = "Факултети, универзитети, институти, библиотеки и стипендии во Македонија — " +
+                "линкови до образовните институции на едно место.",
             sections = listOf(
                 CategorySection(
                     title = "Факултети",

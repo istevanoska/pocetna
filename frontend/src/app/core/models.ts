@@ -22,6 +22,8 @@ export interface CategoryPageData {
   id: string;
   title: string;
   icon: string;
+  /** One-sentence description of the page, used as its meta description. */
+  description?: string;
   sections: CategorySection[];
 }
 

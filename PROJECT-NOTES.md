@@ -98,7 +98,8 @@ Working memory for Claude sessions. Keep under ~2 pages; edit rather than append
   gained a `description` field in Kotlin (and in `models.ts`) so each page's copy lives
   in `LinkDirectoryService.kt` with everything else; a page without one falls back to
   the site description. `index.html` keeps its title and description as the fallback.
-  Needs `gradlew exportLinks` — the model changed. Not built, not verified, not deployed.
+  Needs `gradlew exportLinks` — the model changed. Goce ran exportLinks and the build
+  and confirmed the prerendered output; not committed and not deployed yet.
 - 2026-09-14 — SEO: `/robots.txt` and `/sitemap.xml`, both served by the new
   `config/SeoController.kt`. robots allows everything except `/api/` and points at the
   sitemap; the sitemap lists the homepage plus every category with `hasPage = true`,

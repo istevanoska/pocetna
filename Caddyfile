@@ -1,8 +1,15 @@
 # Serves your domain over HTTPS (certificate is obtained & renewed automatically)
 # and forwards traffic to the Spring Boot app. Set DOMAIN in the .env file.
-{$DOMAIN}, www.{$DOMAIN} {
+{$DOMAIN} {
 	encode gzip
 	reverse_proxy app:8080
+}
+
+# The site lives at the apex only; www 301s to it so the two are not indexed as
+# separate copies of everything. Caddy still gets a certificate for this name —
+# it has to, or the redirect would fail on TLS before it could fire.
+www.{$DOMAIN} {
+	redir https://{$DOMAIN}{uri} permanent
 }
 
 # Fallback: lets you preview the site via the server's IP over http://
